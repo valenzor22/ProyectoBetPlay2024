@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "arbitros_por_partido")
-public class ArbitroPorPartido {
+public class ArbitroPorPartidos {
 
     @Id
     @Column(nullable = false)
