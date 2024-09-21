@@ -6,41 +6,45 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalTime;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "partidos")
-public class Partido {
+@Table(name = "tabladeposiciones")
+public class TabladePosicion {
 
     @Id
-    @Column(nullable = false, name = "id_partido")
+    @Column(nullable = false, name = "id_posicion")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private  Integer id;
 
     @Column(length = 100)
-    private LocalTime fecha;
+    private  Integer puntos;
     @Column(length = 100)
-    private String estadio;
+    private  Integer partidosjugados;
     @Column(length = 100)
-    private Integer equipo_local;
+    private  Integer ganados;
     @Column(length = 100)
-    private Integer equipo_visitante;
+    private  Integer empatados;
     @Column(length = 100)
-    private Integer goles_local;
+    private  Integer perdidos;
     @Column(length = 100)
-    private Integer goles_visitante;
+    private  Integer golesfavor;
+    @Column(length = 100)
+    private  Integer golescontra;
+    @Column(length = 100)
+    private  Integer diferenciagoles;
 
-    // RE NO
+
+    @ManyToOne
+    @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo", nullable = false)
+    private Equipo equipo;
+
     @ManyToOne
     @JoinColumn(name = "id_jornada", referencedColumnName = "id_jornada", nullable = false)
     private Jornada jornada;
 
-    @ManyToOne
-    @JoinColumn(name = "id_equipo_", referencedColumnName = "id_equipo", nullable = false)
-    private Equipo equipo;
+
 }
 

@@ -17,18 +17,15 @@ import java.util.Date;
 public class Jornada {
 
     @Id
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id_jornada")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
 
-
     @Column(length = 100)
-    private Date fechainicio_jornadas;
-
+    private Integer numero;
     @Column(length = 100)
-    private Date fechafin_jornadas;
-
+    private Date fecha_inicio;
     @Column(length = 100)
-    private String numero_jornada;
-
+    private Date fecha_fin;
 }
+

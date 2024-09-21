@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.mapping.Set;
 
-import java.util.ArrayList;
+import java.util.Date;
 
 @Data
 @Builder
@@ -18,20 +17,20 @@ import java.util.ArrayList;
 public class Arbitro {
 
     @Id
-    @Column(name = "id_arbitro" , nullable = false)
+    @Column(nullable = false, name = "id_arbitro")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
 
-    @Column(name = "nombre_arbitro" , length = 100)
-    private  String nombreArbitro;
-
     @Column(length = 100)
-    private  String paisnacimiento_arbitro;
-
-
-
-
+    private  String nombre;
+    @Column(length = 100)
+    private  String apellido;
+    @Column(length = 100)
+    private  String nacionalidad;
+    @Column(length = 100)
+    private Date fecha_nacimiento;
 }
+
 
 
 

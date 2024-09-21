@@ -1,6 +1,5 @@
 package com.ligabtp.ligabetplay.domain;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-
 
 @Data
 @Builder
@@ -18,36 +16,21 @@ import java.util.Date;
 @Table(name = "jugadores")
 public class Jugador {
 
-
     @Id
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id_jugador")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
 
-
-
-
     @Column(length = 100)
-    private String nombre_jugador;
-
+    private  String nombre;
     @Column(length = 100)
-    private String apellido_jugador;
-
+    private  String posicion;
     @Column(length = 100)
-    private Date fechanacimiento_jugador;
-
+    private  Integer numero_camisa;
     @Column(length = 100)
-    private String posicion_jugador;
-
+    private  String nacionalidad;
     @Column(length = 100)
-    private String dorsal_jugador;
-
+    private  String piernahabil_jugador;
     @Column(length = 100)
-    private String nacionalidad_jugador;
-
-    @Column(length = 100)
-    private String piernahabil_jugador;
-
+    private Date fecha_nacimiento;
 }
-
-

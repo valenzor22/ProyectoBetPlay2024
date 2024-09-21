@@ -19,6 +19,7 @@ public class TipoEvento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
 
-
+    @Column(length = 100)
+    private  String nombre;
 
 }

@@ -15,9 +15,17 @@ import lombok.NoArgsConstructor;
 public class Equipo {
 
     @Id
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id_equipo")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
 
-
+    @Column(length = 100)
+    private  String nombre;
+    @Column(length = 100)
+    private  String ciudad;
+    @Column(length = 100)
+    private  String estadio;
+    @Column(length = 100)
+    private  String entrenador;
 }
+
