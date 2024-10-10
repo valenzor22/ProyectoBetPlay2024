@@ -1,10 +1,9 @@
 package com.ligabtp.ligabetplay.controller;
 
 
-import com.ligabtp.ligabetplay.domain.TabladePosicion;
+import com.ligabtp.ligabetplay.domain.TablaDePosicion;
 import com.ligabtp.ligabetplay.repository.TabladePosicionRepository;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,8 +23,8 @@ public class TabladePosicionController {
 
 
     @GetMapping(value = "/obtenerTablasdePosiciones")
-    public List<TabladePosicion> obtenerTablasdePosiciones (){
-        List<TabladePosicion> listaTablasdePosiciones = tabladePosicionRepository.findAll();
+    public List<TablaDePosicion> obtenerTablasdePosiciones (){
+        List<TablaDePosicion> listaTablasdePosiciones = tabladePosicionRepository.findAll();
         return listaTablasdePosiciones;
 
     }

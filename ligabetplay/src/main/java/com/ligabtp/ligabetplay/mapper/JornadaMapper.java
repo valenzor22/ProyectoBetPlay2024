@@ -12,18 +12,18 @@ public class JornadaMapper {
         return Jornada.builder()
                 .id(jornadaDTO.getId())
                 .numero(jornadaDTO.getNumero())
-                .fecha_inicio(jornadaDTO.getFechaInicio())
-                .fecha_fin(jornadaDTO.getTirosFechaFin())
+                .fechaInicio(jornadaDTO.getFechaInicio())
+                .fechaFin(jornadaDTO.getFechaFin())
                 .build();
     }
 
     public static JornadaDTO domainToDTO(Jornada jornada) {
 
-        return Jornada.builder()
-                .id(jornadaDTO.getId())
-                .numero(jornadaDTO.getNumero())
-                .fecha_inicio(jornadaDTO.getFechaInicio())
-                .fecha_fin(jornadaDTO.getTirosFechaFin())
+        return JornadaDTO.builder()
+                .id(jornada.getId())
+                .numero(jornada.getNumero())
+                .fechaInicio(jornada.getFechaInicio())
+                .fechaFin(jornada.getFechaFin())
                 .build();
     }
 

@@ -12,11 +12,13 @@ import lombok.NoArgsConstructor;
 public class TabladePosicionDTO {
     private Integer id;
     private Integer puntos;
-    private Integer partidos_jugados;
+    private Integer partidosJugados;
     private Integer ganados;
     private Integer empatados;
     private Integer perdidos;
-    private Integer goles_favor;
-    private Integer goles_contral;
-    private Integer diferencia_goles;
+    private Integer golesFavor;
+    private Integer golesContra;
+    private Integer diferenciaGoles;
+    private Integer jornadaId;
+    private Integer equipoId;
 }

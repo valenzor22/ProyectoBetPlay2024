@@ -13,10 +13,8 @@ public class PartidoMapper {
                 .id(partidoDTO.getId())
                 .fecha(partidoDTO.getFecha())
                 .estadio(partidoDTO.getEstadio())
-                .equipo_local(partidoDTO.getEquipolocal())
-                .equipo_visitante(partidoDTO.getEquipovisitante())
-                .goles_local(partidoDTO.getGoleslocal())
-                .goles_visitante(partidoDTO.getGolesvisitante())
+                .golesLocal(partidoDTO.getGolesLocal())
+                .golesVisitante(partidoDTO.getGolesVisitante())
                 .build();
     }
 
@@ -26,10 +24,10 @@ public class PartidoMapper {
                 .id(partido.getId())
                 .fecha(partido.getFecha())
                 .estadio(partido.getEstadio())
-                .equipolocal(partido.getEquipo_local())
-                .equipovisitante(partido.getEquipo_visitante())
-                .goleslocal(partido.getGoles_local())
-                .golesvisitante(partido.getGoles_visitante())
+                .golesLocal(partido.getGolesLocal())
+                .golesVisitante(partido.getGolesVisitante())
+                .equipolocalId((partido.getEquipoLocal() != null) ? partido.getEquipoLocal().getId() : null)
+                .equipovisitanteId((partido.getEquipoVisitante() != null) ? partido.getEquipoVisitante().getId() : null)
                 .build();
     }
 

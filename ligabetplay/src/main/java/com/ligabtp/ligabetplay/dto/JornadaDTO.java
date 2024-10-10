@@ -14,7 +14,7 @@ import java.util.Date;
 public class JornadaDTO {
     private Integer id;
     private Integer numero;
-    private Date fecha_inicio;
-    private Date fecha_fin;
+    private Date fechaInicio;
+    private Date fechaFin;
 
 }

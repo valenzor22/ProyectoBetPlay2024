@@ -25,10 +25,10 @@ public class Partido {
     private LocalTime fecha;
     @Column(length = 100)
     private String estadio;
-    @Column(length = 100)
-    private Integer goles_local;
-    @Column(length = 100)
-    private Integer goles_visitante;
+    @Column(length = 100, name = "goles_local")
+    private Integer golesLocal;
+    @Column(length = 100, name = "goles_visitante")
+    private Integer golesVisitante;
 
 
     @ManyToOne

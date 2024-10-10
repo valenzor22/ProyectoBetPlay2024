@@ -12,8 +12,8 @@ public class AsignacionJugadorEquipoMapper {
 
         return AsignacionJugadorEquipo.builder()
                 .id(asignacionJugadorEquipoDTO.getId())
-                .fecha_inicio(asignacionJugadorEquipoDTO.getFechaInicio())
-                .fecha_fin(asignacionJugadorEquipoDTO.getFechaFin())
+                .fechaInicio(asignacionJugadorEquipoDTO.getFechaInicio())
+                .fechaFin(asignacionJugadorEquipoDTO.getFechaFin())
                 .build();
     }
 
@@ -21,8 +21,8 @@ public class AsignacionJugadorEquipoMapper {
 
         return  AsignacionJugadorEquipoDTO.builder()
                 .id(asignacionJugadorEquipo.getId())
-                .fechaInicio(asignacionJugadorEquipo.getFecha_inicio())
-                .fechaFin(asignacionJugadorEquipo.getFecha_fin())
+                .fechaInicio(asignacionJugadorEquipo.getFechaInicio())
+                .fechaFin(asignacionJugadorEquipo.getFechaFin())
                 .equipoId((asignacionJugadorEquipo.getEquipo() != null) ? asignacionJugadorEquipo.getEquipo().getId() : null)
                 .jugadorId((asignacionJugadorEquipo.getEquipo() != null) ? asignacionJugadorEquipo.getJugador().getId() : null)
                 .build();

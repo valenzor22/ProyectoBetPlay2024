@@ -27,8 +27,8 @@ public class Arbitro {
     private String apellido;
     @Column(length = 100)
     private String nacionalidad;
-    @Column(length = 100)
-    private Date fecha_nacimiento;
+    @Column(length = 100, name = " fecha_nacimiento")
+    private Date fechaNacimiento;
 }
 
 

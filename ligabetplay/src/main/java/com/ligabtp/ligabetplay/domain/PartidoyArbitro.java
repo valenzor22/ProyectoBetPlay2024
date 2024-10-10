@@ -19,8 +19,8 @@ public class PartidoyArbitro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 100)
-    private String tipo_arbitro;
+    @Column(length = 100, name = "tipo_arbitro")
+    private String tipoArbitro;
 
 
     @ManyToOne

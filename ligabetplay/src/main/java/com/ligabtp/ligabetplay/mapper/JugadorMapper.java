@@ -13,21 +13,21 @@ public class JugadorMapper {
                 .id(jugadorDTO.getId())
                 .nombre(jugadorDTO.getNombre())
                 .posicion(jugadorDTO.getPosicion())
-                .numero_camisa(jugadorDTO.getNumeroCamisa())
+                .numeroCamisa(jugadorDTO.getNumeroCamisa())
                 .nacionalidad(jugadorDTO.getNacionalidad())
-                .pierna_habil(jugadorDTO.getPiernaHabil())
+                .piernaHabilJugador(jugadorDTO.getPiernaHabilJugador())
                 .build();
     }
 
     public static JugadorDTO domainToDTO(Jugador jugador) {
 
-        return Jugador.builder()
+        return JugadorDTO.builder()
                 .id(jugador.getId())
                 .nombre(jugador.getNombre())
                 .posicion(jugador.getPosicion())
-                .numero_camisa(jugador.getNumeroCamisa())
+                .numeroCamisa(jugador.getNumeroCamisa())
                 .nacionalidad(jugador.getNacionalidad())
-                .pierna_habil(jugador.getPiernaHabil())
+                .piernaHabilJugador(jugador.getPiernaHabilJugador())
                 .build();
     }
 

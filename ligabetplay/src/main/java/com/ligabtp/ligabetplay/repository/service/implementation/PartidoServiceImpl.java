@@ -46,10 +46,10 @@ public class PartidoServiceImpl implements PartidoService {
         if(partidoDTO.getEquipovisitanteId() == null || partidoDTO.getEquipovisitanteId().equals("")){
             throw new Exception("El equipo visitante debe ser no nula");
         }
-        if(partidoDTO.getGoleslocal() == null || partidoDTO.getGoleslocal().equals("")){
+        if(partidoDTO.getGolesLocal() == null || partidoDTO.getGolesLocal().equals("")){
             throw new Exception("Los goles local debe ser no nula");
         }
-        if(partidoDTO.getGolesvisitante() == null || partidoDTO.getGolesvisitante().equals("")){
+        if(partidoDTO.getGolesVisitante() == null || partidoDTO.getGolesVisitante().equals("")){
             throw new Exception("Los goles visitante debe ser no nula");
         }
         if(partidoDTO.getJornada() == null || partidoDTO.getJornada().equals("")){
@@ -73,11 +73,11 @@ public class PartidoServiceImpl implements PartidoService {
             throw new Exception("El equipo visitante debe ser no nula");
         }
 
-        if(partidoDTO.getGoleslocal() == null || partidoDTO.getGoleslocal().equals("")){
+        if(partidoDTO.getGolesLocal() == null || partidoDTO.getGolesLocal().equals("")){
             throw new Exception("Los goles local debe ser no nula");
         }
 
-        if(partidoDTO.getGolesvisitante() == null || partidoDTO.getGolesvisitante().equals("")){
+        if(partidoDTO.getGolesVisitante() == null || partidoDTO.getGolesVisitante().equals("")){
             throw new Exception("Los goles visitante debe ser no nula");
         }
         if(partidoDTO.getJornada() == null || partidoDTO.getJornada().equals("")){

@@ -25,12 +25,12 @@ public class Jugador {
     private  String nombre;
     @Column(length = 100)
     private  String posicion;
-    @Column(length = 100)
-    private  Integer numero_camisa;
+    @Column(length = 100, name = "numero_camisa")
+    private  Integer numeroCamisa;
     @Column(length = 100)
     private  String nacionalidad;
-    @Column(length = 100)
-    private  String piernahabil_jugador;
-    @Column(length = 100)
-    private Date fecha_nacimiento;
+    @Column(length = 100, name = "piernahabil_jugador")
+    private  String piernaHabilJugador;
+    @Column(length = 100, name = "fecha_nacimiento")
+    private Date fechaNacimiento;
 }

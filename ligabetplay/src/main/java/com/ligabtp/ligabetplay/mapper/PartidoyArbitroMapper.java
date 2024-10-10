@@ -11,15 +11,15 @@ public class PartidoyArbitroMapper {
 
         return PartidoyArbitro.builder()
                 .id(partidoyArbitroDTO.getId())
-                .tipo_arbitro(partidoyArbitroDTO.getTipoArbitro())
+                .tipoArbitro(partidoyArbitroDTO.getTipoArbitro())
                 .build();
     }
 
     public static PartidoyArbitroDTO domainToDTO(PartidoyArbitro partidoyArbitro) {
 
-        return PartidoyArbitro.builder()
+        return PartidoyArbitroDTO.builder()
                 .id(partidoyArbitro.getId())
-                .tipo_arbitro(partidoyArbitro.getTipoArbitro())
+                .tipoArbitro(partidoyArbitro.getTipoArbitro())
                 .build();
     }
 

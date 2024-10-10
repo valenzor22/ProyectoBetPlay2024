@@ -23,9 +23,9 @@ public class Jornada {
 
     @Column(length = 100)
     private Integer numero;
-    @Column(length = 100)
-    private Date fecha_inicio;
-    @Column(length = 100)
-    private Date fecha_fin;
+    @Column(length = 100, name = "fecha_inicio")
+    private Date fechaInicio;
+    @Column(length = 100, name = "fecha_fin")
+    private Date fechaFin;
 }
 

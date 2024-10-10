@@ -14,7 +14,7 @@ public class ArbitroMapper {
                 .nombre(arbitroDTO.getNombre())
                 .apellido(arbitroDTO.getApellido())
                 .nacionalidad(arbitroDTO.getNacionalidad())
-                .fecha_nacimiento(arbitroDTO.getFecha_nacimiento())
+                .fechaNacimiento(arbitroDTO.getFechaNacimiento())
                 .build();
     }
 
@@ -25,7 +25,7 @@ public class ArbitroMapper {
                 .nombre(arbitro.getNombre())
                 .apellido(arbitro.getApellido())
                 .nacionalidad(arbitro.getNacionalidad())
-                .fecha_nacimiento(arbitro.getFecha_nacimiento())
+                .fechaNacimiento(arbitro.getFechaNacimiento())
                 .build();
     }
 

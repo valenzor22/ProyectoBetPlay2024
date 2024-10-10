@@ -15,10 +15,10 @@ public class PartidoDTO {
     private Integer id;
     private LocalTime fecha;
     private String estadio;
+    private Integer golesLocal;
+    private Integer golesVisitante;
+    private Integer jornada;
     private Integer equipolocalId;
     private Integer equipovisitanteId;
-    private Integer goleslocal;
-    private Integer golesvisitante;
-    private Integer jornada;
 
 }

@@ -21,20 +21,20 @@ public class TablaDePosicion {
 
     @Column(length = 100)
     private  Integer puntos;
-    @Column(length = 100)
-    private  Integer partidosjugados;
+    @Column(length = 100, name = " partidos_jugados")
+    private  Integer partidosJugados;
     @Column(length = 100)
     private  Integer ganados;
     @Column(length = 100)
     private  Integer empatados;
     @Column(length = 100)
     private  Integer perdidos;
-    @Column(length = 100)
-    private  Integer golesfavor;
-    @Column(length = 100)
-    private  Integer golescontra;
-    @Column(length = 100)
-    private  Integer diferenciagoles;
+    @Column(length = 100, name = "goles_favor ")
+    private  Integer golesFavor;
+    @Column(length = 100, name = "goles_contra")
+    private  Integer golesContra;
+    @Column(length = 100, name = "diferencia_goles")
+    private  Integer diferenciaGoles;
 
 
     @ManyToOne

@@ -11,4 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PartidoyArbitroDTO {
     private Integer id;
+    private String tipoArbitro;  // le agregue este porque estaba en el domain y aca no
+    private String partidoId;   // tambien la agregue
+    private String arbitroId;   // tambien la agregue
 }

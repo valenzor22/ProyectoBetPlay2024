@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventodelPartidoDTO {
+public class EventoDelPartidoDTO {
     private Integer id;
-    private String tipo_evento;
     private Integer minuto;
+    private Integer partidoId;
+    private Integer jugadorId;
 }
