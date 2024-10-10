@@ -26,21 +26,21 @@ public class Partido {
     @Column(length = 100)
     private String estadio;
     @Column(length = 100)
-    private Integer equipo_local;
-    @Column(length = 100)
-    private Integer equipo_visitante;
-    @Column(length = 100)
     private Integer goles_local;
     @Column(length = 100)
     private Integer goles_visitante;
 
-    // RE NO
+
     @ManyToOne
     @JoinColumn(name = "id_jornada", referencedColumnName = "id_jornada", nullable = false)
     private Jornada jornada;
 
     @ManyToOne
-    @JoinColumn(name = "id_equipo_", referencedColumnName = "id_equipo", nullable = false)
-    private Equipo equipo;
+    @JoinColumn(name = "equipo_local", referencedColumnName = "id_equipo", nullable = false)
+    private Equipo equipoLocal;
+
+    @ManyToOne
+    @JoinColumn(name = "equipo_visitante", referencedColumnName = "id_equipo", nullable = false)
+    private Equipo equipoVisitante;
 }
 

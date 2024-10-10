@@ -21,12 +21,12 @@ public class Arbitro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
 
+    @Column(length = 100, name = "nombre")
+    private String nombre;
     @Column(length = 100)
-    private  String nombre;
+    private String apellido;
     @Column(length = 100)
-    private  String apellido;
-    @Column(length = 100)
-    private  String nacionalidad;
+    private String nacionalidad;
     @Column(length = 100)
     private Date fecha_nacimiento;
 }

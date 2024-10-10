@@ -20,7 +20,6 @@ public class AsignacionJugadorEquipo {
     @Column(nullable = false, name = "id_asignacion")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @Column(length = 100)
     private Date fecha_inicio;
     @Column(length = 100)
