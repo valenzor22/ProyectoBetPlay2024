@@ -10,7 +10,7 @@ public class EventodelPartidoMapper {
 
     public static EventodelPartido dtoToDomain(EventodelPartidoDTO eventodelPartidoDTO){
 
-        returnEventodelPartido.builder()
+        return EventodelPartido.builder()
                 .id(eventodelPartidoDTO.getId())
                 .tipo_evento(eventodelPartidoDTO.getTipo_evento())
                 .build();

@@ -17,22 +17,19 @@ public class PartidoyArbitro {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Integer id;
+    private Integer id;
 
     @Column(length = 100)
-    private  String tipo_arbitro;
+    private String tipo_arbitro;
 
 
-        @ManyToOne
-        @MapsId("idPartido")
-        @JoinColumn(name = "id_partido",  referencedColumnName = "id_partido", nullable = false)
-        private Partido partido;
+    @ManyToOne
+    @JoinColumn(name = "id_partido", referencedColumnName = "id_partido", nullable = false)
+    private Partido partido;
 
-        @ManyToOne
-        @MapsId("idArbitro")
-        @JoinColumn(name = "id_arbitro",  referencedColumnName = "id_arbitro", nullable = false)
-        private Arbitro arbitro;
-
+    @ManyToOne
+    @JoinColumn(name = "id_arbitro", referencedColumnName = "id_arbitro", nullable = false)
+    private Arbitro arbitro;
 
 
 }

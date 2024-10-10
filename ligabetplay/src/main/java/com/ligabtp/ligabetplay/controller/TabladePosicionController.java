@@ -30,6 +30,6 @@ public class TabladePosicionController {
 
     }
 
-    @PostMapping (value = "/crearNuevoTabladePosicion")
+
 
 }

@@ -92,5 +92,49 @@ public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEqui
         return null;
     }
 
+    @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    public AsignacionJugadorEquipoDTO modificarAsignacionJugadorEquipo(AsignacionJugadorEquipoDTO asignacionJugadorEquipoDTO) throws Exception {
+        //Logica de
+        if(asignacionJugadorEquipoDTO.getId() != null){
+            throw new Exception("El debe de ser nulo");
+        }
+
+        //Validacion 2 llegue al fecha inicio
+        if(asignacionJugadorEquipoDTO.getFechaInicio() == null || asignacionJugadorEquipoDTO.getFechaInicio().equals("")){
+            throw new Exception("La fecha inicio debe ser no nula");
+        }
+
+        //Validacion 3 llegue al fecha fin
+        if(asignacionJugadorEquipoDTO.getFechaFin() == null || asignacionJugadorEquipoDTO.getFechaFin().equals("")){
+            throw new Exception("La fecha fin debe ser no nula");
+        }
+
+        if(asignacionJugadorEquipoDTO.getEquipoId() ==null){
+            throw new Exception("El equipo no debe ser nulo");
+        }
+
+        AsignacionJugadorEquipo asignacionJugadorEquipo = AsignacionJugadorEquipoMapper.dtoToDomain(asignacionJugadorEquipoDTO);
+        Equipo equipo = equipoRepository.getReferenceById(asignacionJugadorEquipoDTO.getEquipoId());
+
+        if(equipo == null){
+            throw new Exception("El equipo no existe");
+        }
+
+        Jugador jugador = jugadorRepository.getReferenceById(asignacionJugadorEquipoDTO.getJugadorId());
+
+        if (jugador == null){
+            throw new Exception("El jugador no existe");
+        }
+
+
+        asignacionJugadorEquipo.setEquipo(equipo);
+        asignacionJugadorEquipo.setJugador(jugador);
+        asignacionJugadorEquipo = asignacionJugadorEquipoRepository.save(asignacionJugadorEquipo);
+
+        return AsignacionJugadorEquipoMapper.domainToDto(asignacionJugadorEquipo);
+
+    }
+
 
 }

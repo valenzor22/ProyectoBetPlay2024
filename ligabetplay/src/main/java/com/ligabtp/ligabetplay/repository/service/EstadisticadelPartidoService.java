@@ -1,8 +1,8 @@
 package com.ligabtp.ligabetplay.repository.service;
 
-import com.ligabtp.ligabetplay.dto.EstadisticadelPartidoDTO;
+import com.ligabtp.ligabetplay.dto.EstadisticaDelPartidoDTO;
 
 public interface EstadisticadelPartidoService {
-    EstadisticadelPartidoDTO guardarNuevaEstadisticasDelPartido(EstadisticadelPartidoDTO estadisticasDelPartidoDTO) throws Exception;
+    EstadisticaDelPartidoDTO guardarNuevaEstadisticasDelPartido(EstadisticaDelPartidoDTO estadisticasDelPartidoDTO) throws Exception;
 
 }

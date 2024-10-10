@@ -1,4 +1,3 @@
-
 package com.ligabtp.ligabetplay.domain;
 
 import jakarta.persistence.*;
@@ -12,42 +11,39 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "estadisticasdelpartidos")
-public class EstadisticadelPartido {
+@Table(name = "tabladeposiciones")
+public class TablaDePosicion {
 
     @Id
-    @Column(nullable = false, name = "id_estadistica")
+    @Column(nullable = false, name = "id_posicion")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
 
     @Column(length = 100)
-    private  Float posesion;
+    private  Integer puntos;
     @Column(length = 100)
-    private  Integer tirosapuerta;
+    private  Integer partidosjugados;
     @Column(length = 100)
-    private  Integer tirosfuera;
+    private  Integer ganados;
     @Column(length = 100)
-    private  Integer faltas;
+    private  Integer empatados;
     @Column(length = 100)
-    private  Integer corners;
+    private  Integer perdidos;
     @Column(length = 100)
-    private  Integer tarjetasamarillas;
+    private  Integer golesfavor;
     @Column(length = 100)
-    private  Integer tarjetasrojas;
+    private  Integer golescontra;
     @Column(length = 100)
-    private  Integer tiroesquinaresultado;
-    @Column(length = 100)
-    private  Integer rematearcoresultado;
+    private  Integer diferenciagoles;
 
 
-
-
-    @ManyToOne
-    @JoinColumn(name = "id_partido",referencedColumnName = "id_partido", nullable = false)
-    private Partido partido;
     @ManyToOne
     @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo", nullable = false)
     private Equipo equipo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_jornada", referencedColumnName = "id_jornada", nullable = false)
+    private Jornada jornada;
 
 
 }

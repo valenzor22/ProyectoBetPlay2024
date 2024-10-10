@@ -7,7 +7,7 @@ import com.ligabtp.ligabetplay.dto.TabladePosicionDTO;
 
 import java.util.List;
 
-public class TabladePosicionesMapper {
+public class TabladePosicionMapper {
 
     public static TabladePosicion dtoToDomain(TabladePosicionDTO tabladePosicionesDTO){
 

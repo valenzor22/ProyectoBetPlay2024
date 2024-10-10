@@ -55,4 +55,11 @@ public class AsignacionJugadorEquipoController {
         AsignacionJugadorEquipoDTO asignacionJugadorEquipoResponse = asignacionJugadorEquipoService.buscarAsignacionJugadorPorId(id);
         return new ResponseEntity<>(asignacionJugadorEquipoResponse, HttpStatus.OK);
     }
+
+    @PutMapping(value = "/modificarNuevaAsignacionJugadorEquipo")
+    public ResponseEntity<AsignacionJugadorEquipoDTO> modificarNuevaAsignacionJugadorEquipo(@RequestBody AsignacionJugadorEquipoDTO asignacionJugadorEquipoDTO) throws Exception {
+        AsignacionJugadorEquipoDTO asignacionJugadorEquipoResponse = asignacionJugadorEquipoService.guardarNuevaAsignacionJugadorEquipo(asignacionJugadorEquipoDTO);
+        return new ResponseEntity<>(asignacionJugadorEquipoResponse, HttpStatus.CREATED);
+
+    }
 }
