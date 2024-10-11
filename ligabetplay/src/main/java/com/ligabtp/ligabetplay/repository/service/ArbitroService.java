@@ -1,9 +1,9 @@
 package com.ligabtp.ligabetplay.repository.service;
 
 
-import com.ligabtp.ligabetplay.dto.JugadorDTO;
+import com.ligabtp.ligabetplay.dto.ArbitroDTO;
 
 public interface ArbitroService {
 
-    JugadorDTO guardarNuevaJugador(JugadorDTO jugadorDTO) throws Exception;
+    ArbitroDTO guardarNuevaArbitro(ArbitroDTO arbitroDTO) throws Exception;
 }

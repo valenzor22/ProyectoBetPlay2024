@@ -84,8 +84,6 @@ public class PartidoServiceImpl implements PartidoService {
             throw new Exception("Los goles visitante debe ser no nula");
         }
 
-
-
         if(partidoDTO.getEquipolocalId() ==null){
             throw new Exception("El equipo no debe ser nulo");
         }
