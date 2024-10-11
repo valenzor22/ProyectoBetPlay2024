@@ -52,7 +52,7 @@ public class AsignacionJugadorEquipoController {
 
     @GetMapping(value = "/buscarAsignacionJugadorEquipoPorId/{id}")
     public ResponseEntity<AsignacionJugadorEquipoDTO> buscarAsignacionJugadorEquipoPorId(@PathVariable Integer id) throws Exception {
-        AsignacionJugadorEquipoDTO asignacionJugadorEquipoResponse = asignacionJugadorEquipoService.buscarAsignacionJugadorPorId(id);
+        AsignacionJugadorEquipoDTO asignacionJugadorEquipoResponse = asignacionJugadorEquipoService.buscarAsignacionJugadorEquipoPorId(id);
         return new ResponseEntity<>(asignacionJugadorEquipoResponse, HttpStatus.OK);
     }
 
