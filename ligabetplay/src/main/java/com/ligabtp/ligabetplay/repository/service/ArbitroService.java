@@ -5,5 +5,5 @@ import com.ligabtp.ligabetplay.dto.ArbitroDTO;
 
 public interface ArbitroService {
 
-    ArbitroDTO guardarNuevaArbitro(ArbitroDTO arbitroDTO) throws Exception;
+    ArbitroDTO guardarNuevoArbitro(ArbitroDTO arbitroDTO) throws Exception;
 }
