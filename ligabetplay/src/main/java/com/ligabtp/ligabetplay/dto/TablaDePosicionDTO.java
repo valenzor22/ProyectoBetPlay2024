@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TabladePosicionDTO {
+public class TablaDePosicionDTO {
     private Integer id;
     private Integer puntos;
     private Integer partidosJugados;

@@ -45,8 +45,8 @@ public class AsignacionJugadorEquipoController {
 
     @GetMapping(value = "/obtenerAsignacionJugadorEquipo")
     public List<AsignacionJugadorEquipoDTO> obtenerAsignacionJugadorEquipoList(){
-        List<AsignacionJugadorEquipo> listaAsignacionesJugadores = asignacionJugadorEquipoRepository.findAll();
-        return AsignacionJugadorEquipoMapper.domainToDTOList(listaAsignacionesJugadores);
+        List<AsignacionJugadorEquipo> listaAsignacionesJugadoresEquipos = asignacionJugadorEquipoRepository.findAll();
+        return AsignacionJugadorEquipoMapper.domainToDTOList(listaAsignacionesJugadoresEquipos);
     }
 
     @GetMapping(value = "/buscarAsignacionJugadorEquipoPorId/{id}")

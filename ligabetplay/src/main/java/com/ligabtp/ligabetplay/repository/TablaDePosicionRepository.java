@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TabladePosicionRepository extends JpaRepository<TablaDePosicion, Integer> {
+public interface TablaDePosicionRepository extends JpaRepository<TablaDePosicion, Integer> {
 }
