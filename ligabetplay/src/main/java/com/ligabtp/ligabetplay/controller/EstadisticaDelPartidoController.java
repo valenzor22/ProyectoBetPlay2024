@@ -20,7 +20,7 @@ public class EstadisticaDelPartidoController {
     private EstadisticaDelPartidoService estadisticaDelPartidoService;
 
 
-    public EstadisticaDelPartidoController(EstadisticaDelPartidoRepository estadisticaDelPartidoRepository) {
+    public EstadisticaDelPartidoController(EstadisticaDelPartidoRepository estadisticaDelPartidoRepository, EstadisticaDelPartidoService estadisticaDelPartidoService) {
         this.estadisticaDelPartidoRepository = estadisticaDelPartidoRepository;
         this.estadisticaDelPartidoService = estadisticaDelPartidoService;
     }
