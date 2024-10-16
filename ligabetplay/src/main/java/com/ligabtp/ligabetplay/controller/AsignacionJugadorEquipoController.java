@@ -7,13 +7,12 @@ import com.ligabtp.ligabetplay.mapper.AsignacionJugadorEquipoMapper;
 import com.ligabtp.ligabetplay.repository.AsignacionJugadorEquipoRepository;
 import com.ligabtp.ligabetplay.repository.service.AsignacionJugadorEquipoService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 
 @RestController
 @RequestMapping("/AsignacionJugadorEquipo")
