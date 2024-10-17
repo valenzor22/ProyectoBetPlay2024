@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TipoEventoMapper {
 
-    public static TipoEvento dtoDomain (TipoEventoDTO tipoEventoDTO){
+    public static TipoEvento dtoToDomain (TipoEventoDTO tipoEventoDTO){
 
         return TipoEvento.builder()
                 .id(tipoEventoDTO.getId())

@@ -75,6 +75,11 @@ public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEqui
     }
 
     @Override
+    public AsignacionJugadorEquipoDTO buscarAsignacionJugadorEquipoPorId(Integer id) throws Exception {
+        return null;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public AsignacionJugadorEquipoDTO buscarAsignacionJugadorPorId(Integer id) throws Exception {
         //Logica para buscar ASIGNACION por id retornando DTO

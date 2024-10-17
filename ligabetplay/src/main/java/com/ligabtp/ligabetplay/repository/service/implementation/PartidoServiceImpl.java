@@ -118,4 +118,14 @@ public class PartidoServiceImpl implements PartidoService {
         return PartidoMapper.domainToDTO(partido);
 
     }
+
+    @Override
+    public PartidoDTO buscarPartidoPorId(Integer id) throws Exception {
+        return null;
+    }
+
+    @Override
+    public PartidoDTO modificarPartido(PartidoDTO partidoDTO) throws Exception {
+        return null;
+    }
 }
