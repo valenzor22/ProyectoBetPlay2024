@@ -21,29 +21,25 @@ import java.util.List;
 public class EquipoController {
 
     //inyeccion independencia
-    private EquipoRepository equipoRepository;
     private EquipoService equipoService;
 
 
-    public EquipoController(EquipoRepository equipoRepository) {
-        this.equipoRepository = equipoRepository;
+    public EquipoController() {
         this.equipoService = equipoService;
     }
 
 
     @GetMapping(value = "/obtenerEquipo")
-    public List<Equipo> obtenerEquipo (){
-        List<Equipo> listaEquipos = equipoRepository.findAll();
-        return listaEquipos;
+    public List<EquipoDTO> obtenerequipo (){
+        return equipoService.obtenerEqupos();
     }
 
     @PostMapping(value = "/crearNuevoEquipo")
-    public ResponseEntity<EquipoDTO> crearNuevoEquipo (@RequestBody EquipoDTO equipoDTO){
-        Equipo equipo = EquipoMapper.dtoToDomain(equipoDTO);
-        equipo = equipoRepository.save(equipo);
-        EquipoDTO equipoDTOResponse = EquipoMapper.domainToDTO(equipo);
-        return new ResponseEntity<>(equipoDTOResponse, HttpStatus.CREATED)
-
+    public ResponseEntity<EquipoDTO> crearNuevoEquipo (@RequestBody EquipoDTO equipoDTO) throws Exception{
+        EquipoDTO equipoDTOResponse = equipoService.guardarNuevaEquipo(equipoDTO);
+        return new ResponseEntity<>(equipoDTOResponse, HttpStatus.CREATED);
     }
+
+
 }
 

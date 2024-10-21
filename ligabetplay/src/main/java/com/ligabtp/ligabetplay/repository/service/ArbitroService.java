@@ -7,9 +7,15 @@ import java.util.List;
 
 public interface ArbitroService {
 
+    ArbitroDTO buscarArbitroPorId(Integer id) throws Exception;
+
     ArbitroDTO guardarNuevoArbitro(ArbitroDTO arbitroDTO) throws Exception;
-    ArbitroDTO actualizarArbitro(ArbitroDTO arbitroDTO);
-    ArbitroDTO buscarArbitroPorId(Long id);
-    List<ArbitroDTO> listarArbitros();
+
+    List<ArbitroDTO> obtenerArbitros();
+
+    ArbitroDTO modificarArbitro(ArbitroDTO arbitroDTO) throws Exception;
+
+    ArbitroDTO buscarArbitroPorNombre(String nombre) throws Exception;
+
 
 }

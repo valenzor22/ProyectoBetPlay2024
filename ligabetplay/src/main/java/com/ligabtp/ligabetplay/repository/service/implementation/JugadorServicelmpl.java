@@ -50,19 +50,19 @@ public class JugadorServicelmpl implements JugadorService {
             throw new Exception("El nombre del jugador no puede ser nulo");
         }
         if (jugadorDTO.getPiernaHabilJugador() == null || jugadorDTO.getPiernaHabilJugador().equals("")) {
-            throw new Exception("El nombre del jugador no puede ser nulo");
+            throw new Exception("La pierna habil del jugador no puede ser nulo");
         }
         if (jugadorDTO.getPosicion() == null || jugadorDTO.getPosicion().equals("")) {
-            throw new Exception("El nombre del jugador no puede ser nulo");
+            throw new Exception("La posicion del jugador no puede ser nulo");
         }
         if (jugadorDTO.getNacionalidad() == null || jugadorDTO.getNacionalidad().equals("")) {
-            throw new Exception("El nombre del jugador no puede ser nulo");
+            throw new Exception("La nacionalidad del jugador no puede ser nulo");
         }
         if (jugadorDTO.getNumeroCamisa() == null || jugadorDTO.getNumeroCamisa().equals("")) {
-            throw new Exception("El nombre del jugador no puede ser nulo");
+            throw new Exception("El numero de camiseta del jugador no puede ser nulo");
         }
         if (jugadorDTO.getFechaNacimiento() == null || jugadorDTO.getFechaNacimiento().equals("")) {
-            throw new Exception("El nombre del jugador no puede ser nulo");
+            throw new Exception("La fecha de nacimiento del jugador no puede ser nulo");
         }
 
         Jugador jugador = JugadorMapper.dtoToDomain(jugadorDTO);

@@ -17,29 +17,42 @@ import java.util.List;
 public class ArbitroController {
 
     //inyeccion independencia
-    private ArbitroRepository arbitroRepository;
     private ArbitroService arbitroService;
 
 
     public ArbitroController(ArbitroRepository arbitroRepository) {
-        this.arbitroRepository = arbitroRepository;
         this.arbitroService = arbitroService;
     }
 
 
     @GetMapping(value = "/obtenerArbitros")
     public List<ArbitroDTO> obtenerArbitros (){
-        List<Arbitro> listaArbitros = arbitroRepository.findAll();
-        List<ArbitroDTO> arbitrosDTO = ArbitroMapper.domainToDTOList(listaArbitros);
-        return arbitrosDTO;
+      return arbitroService.obtenerArbitros();
 
     }
 
     @PostMapping(value = "/crearNuevoArbitro")
-    public ResponseEntity<ArbitroDTO> crearNuevoArbitro(@RequestBody ArbitroDTO arbitroDTO){
-        Arbitro arbitro = ArbitroMapper.dtoToDomain(arbitroDTO);
-        arbitro = arbitroRepository.save(arbitro);
-        ArbitroDTO arbitroDTOResponse = ArbitroMapper.domainToDTO(arbitro);
+    public ResponseEntity<ArbitroDTO> crearNuevoArbitro(@RequestBody ArbitroDTO arbitroDTO) throws Exception{
+        ArbitroDTO arbitroDTOResponse = arbitroService.guardarNuevoArbitro(arbitroDTO);
         return new ResponseEntity<>(arbitroDTOResponse, HttpStatus.CREATED);
     }
+
+    @GetMapping(value = "/buscarArbitroPorId/{id}")
+    public ResponseEntity<ArbitroDTO> buscarArbitroPorId(@PathVariable ("id") Integer id) throws Exception{
+        ArbitroDTO arbitroDTO = arbitroService.buscarArbitroPorId(id);
+        return new ResponseEntity<>(arbitroDTO, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/modificarArbitro")
+    public ResponseEntity<ArbitroDTO> modificarArbitro(@RequestBody ArbitroDTO arbitroDTO) throws Exception{
+        ArbitroDTO arbitroResponse = arbitroService.modificarArbitro(arbitroDTO);
+        return new ResponseEntity<>(arbitroResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping (value = "/buscarArbitroPorNombre/{nombre}")
+    public ResponseEntity<ArbitroDTO> buscarArbitroPorNombre(@PathVariable ("nombre") String nombre) throws Exception{
+        ArbitroDTO arbitroResponse = arbitroService.buscarArbitroPorNombre(nombre);
+        return new ResponseEntity<>(arbitroResponse, HttpStatus.OK);
+    }
+
 }
