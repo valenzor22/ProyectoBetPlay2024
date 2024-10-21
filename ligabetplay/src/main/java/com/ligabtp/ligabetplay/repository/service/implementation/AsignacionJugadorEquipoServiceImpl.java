@@ -74,16 +74,11 @@ public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEqui
 
     }
 
-    @Override
-    public AsignacionJugadorEquipoDTO buscarAsignacionJugadorEquipoPorId(Integer id) throws Exception {
-        return null;
-    }
 
     @Override
     @Transactional(readOnly = true)
-    public AsignacionJugadorEquipoDTO buscarAsignacionJugadorPorId(Integer id) throws Exception {
-        //Logica para buscar ASIGNACION por id retornando DTO
-        //Validación del id que llega por parametro
+    public AsignacionJugadorEquipoDTO buscarAsignacionJugadorEquipoPorId(Integer id) throws Exception {
+
         if(id == null || id.equals(0)) {
             throw new Exception("El id del asignacion no puede ser null");
         }
@@ -101,7 +96,7 @@ public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEqui
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public AsignacionJugadorEquipoDTO modificarAsignacionJugadorEquipo(AsignacionJugadorEquipoDTO asignacionJugadorEquipoDTO) throws Exception {
         //Logica de
-        if(asignacionJugadorEquipoDTO.getId() != null){
+        if(asignacionJugadorEquipoDTO.getId() == null){
             throw new Exception("El debe de ser nulo");
         }
 
