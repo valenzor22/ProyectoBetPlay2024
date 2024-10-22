@@ -20,12 +20,14 @@ public class JugadorController {
 
 
     public JugadorController() {
+
         this.jugadorService = jugadorService;
     }
 
 
     @GetMapping(value = "/obtenerJugador")
     public List<JugadorDTO> obtenerjugador() {
+
         return jugadorService.obtenerJugadores();
     }
 

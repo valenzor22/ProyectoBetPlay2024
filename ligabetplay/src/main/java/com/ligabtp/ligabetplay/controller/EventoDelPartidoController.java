@@ -1,64 +1,57 @@
 package com.ligabtp.ligabetplay.controller;
 
 
-import com.ligabtp.ligabetplay.domain.EventoDelPartido;
 import com.ligabtp.ligabetplay.dto.EventoDelPartidoDTO;
-import com.ligabtp.ligabetplay.mapper.EventoDelPartidoMapper;
-import com.ligabtp.ligabetplay.repository.EventoDelPartidoRepository;
 import com.ligabtp.ligabetplay.repository.service.EventoDelPartidoService;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
-
-
 @RestController
-@RequestMapping("/EventoDelPartido")
+@RequestMapping("/eventoDelPartido")
 public class EventoDelPartidoController {
 
     //inyeccion independencia
-    private EventoDelPartidoRepository eventoDelPartidoRepository;
     private EventoDelPartidoService eventoDelPartidoService;
 
 
-    public EventoDelPartidoController(EventoDelPartidoRepository eventoDelPartidoRepository, EventoDelPartidoService eventoDelPartidoService) {
-        this.eventoDelPartidoRepository = eventoDelPartidoRepository;
+    public EventoDelPartidoController() {
         this.eventoDelPartidoService = eventoDelPartidoService;
     }
 
 
     @GetMapping(value = "/obtenerEventoDelPartido")
-    public List<EventoDelPartido> obtenerEventoDelPartido (){
-        List<EventoDelPartido> listaEventoDelPartido = eventoDelPartidoRepository.findAll();
-        return listaEventoDelPartido;
-
+    public List<EventoDelPartidoDTO> obtenereventoDelPartido() {
+       return eventoDelPartidoService.obtenerEventoDelPartido();
     }
 
-    @PostMapping(value = "guardarNuevaEventoDelPartido")
-    public ResponseEntity<EventoDelPartidoDTO> guardarNuevaEventoDelPartido(@RequestBody EventoDelPartidoDTO eventoDelPartidoDTO) throws Exception {
-        EventoDelPartidoDTO eventoDelPartidoResponse = eventoDelPartidoService.guardarNuevaEventoDelPartido(eventoDelPartidoDTO);
+    @PostMapping(value = "/crearNuevoEventoDelPartido")
+    public ResponseEntity<EventoDelPartidoDTO> crearNuevoEventoDelPartido(@RequestBody EventoDelPartidoDTO eventoDelPartidoDTO) throws Exception {
+        EventoDelPartidoDTO eventoDelPartidoResponse = eventoDelPartidoService.guardarNuevoEventoDelPartido(eventoDelPartidoDTO);
         return new ResponseEntity<>(eventoDelPartidoResponse, HttpStatus.CREATED);
-
     }
 
-    @GetMapping(value = "/obtenerEventoDelPartido")
-    public List<EventoDelPartidoDTO> obtenerEventoDelPartidoList(){
-        List<EventoDelPartido> listaEventoDelPartidos = eventoDelPartidoRepository.findAll();
-        return EventoDelPartidoMapper.domainToDTOList(listaEventoDelPartidos);
-    }
 
     @GetMapping(value = "/buscarEventoDelPartidoPorId/{id}")
-    public ResponseEntity<EventoDelPartidoDTO> buscarEventoDelPartidoPorId(@PathVariable Integer id) throws Exception {
-        EventoDelPartidoDTO eventoDelPartidoResponse = eventoDelPartidoService.buscarEventoDelPartidoPorId(id);
-        return new ResponseEntity<>(eventoDelPartidoResponse, HttpStatus.OK);
+    public ResponseEntity<EventoDelPartidoDTO> buscarEventoDelPartidoPorId(@PathVariable("id") Integer id) throws Exception {
+        EventoDelPartidoDTO eventoDelPartidoDTO = EventoDelPartidoService.buscarEventoDelPartidoPorId(id);
+        return new ResponseEntity<>(eventoDelPartidoDTO, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/modificarNuevaEventoDelPartido")
-    public ResponseEntity<EventoDelPartidoDTO> modificarNuevaEventoDelPartido(@RequestBody EventoDelPartidoDTO eventoDelPartidoDTO) throws Exception {
-        EventoDelPartidoDTO eventoDelPartidoResponse = eventoDelPartidoService.guardarNuevaEventoDelPartido(eventoDelPartidoDTO);
+
+    @PutMapping(value = "/modificarEventoDelPartido")
+    public ResponseEntity<EventoDelPartidoDTO> modificarEventoDelPartido(@RequestBody EventoDelPartidoDTO eventoDelPartidoDTO) throws Exception {
+        EventoDelPartidoDTO eventoDelPartidoResponse = eventoDelPartidoService.modificarEventoDelPartido(eventoDelPartidoDTO);
         return new ResponseEntity<>(eventoDelPartidoResponse, HttpStatus.CREATED);
-
     }
+
+    @GetMapping(value = "/buscarEventoDelPartidoPorNombre/{nombre}")
+    public ResponseEntity<EventoDelPartidoDTO> buscarEventoDelPartidoPorNombre(@PathVariable("nombre") String nombre) throws Exception {
+        EventoDelPartidoDTO eventoDelPartidoDTO = eventoDelPartidoService.buscarEventoDelPartidoPorNombre(nombre);
+        return new ResponseEntity<>(eventoDelPartidoDTO, HttpStatus.OK);
+}
 }

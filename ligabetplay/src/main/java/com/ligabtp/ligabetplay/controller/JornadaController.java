@@ -9,10 +9,7 @@ import com.ligabtp.ligabetplay.repository.service.JornadaService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,27 +18,41 @@ import java.util.List;
 public class JornadaController {
 
     //inyeccion independencia
-    private JornadaRepository jornadaRepository;
     private JornadaService jornadaService;
 
 
-    public JornadaController(JornadaRepository jornadaRepository) {
-        this.jornadaRepository = jornadaRepository;
+    public JornadaController() {
         this.jornadaService = jornadaService;
     }
 
 
     @GetMapping(value = "/obtenerJornada")
-    public List<Jornada> obtenerJornada (){
-        List<Jornada> listaJornadas = jornadaRepository.findAll();
-        return listaJornadas;
+    public List<JornadaDTO> obtenerJornada (){
+        return jornadaService.obtenerJornadas();
     }
 
     @PostMapping(value = "/crearNuevaJornada")
-    public ResponseEntity<JornadaDTO> crearNuvaJornada (@RequestBody JornadaDTO jornadaDTO){
-        Jornada jornada = JornadaMapper.dtoToDomain(jornadaDTO);
-        jornada = jornadaRepository.save(jornada);
-        JornadaDTO jornadaDTOResponse = JornadaMapper.domainToDTOList(jornada);
-        return new ResponseEntity<>(JornadaDTOResponse, HttpStatus.CREATED);
+    public ResponseEntity<JornadaDTO> crearNuvaJornada (@RequestBody JornadaDTO jornadaDTO) throws Exception{
+        JornadaDTO jornadaResponse = jornadaService.guardarNuevaJornada(jornadaDTO);
+        return new ResponseEntity<>(jornadaResponse, HttpStatus.CREATED);
     }
+
+    @GetMapping (value = "/buscarJornadaPorId/{id}")
+    public ResponseEntity<JornadaDTO> buscarJornadaPorId (@PathVariable ("id") Integer id) throws Exception{
+        JornadaDTO jornadaDTO = jornadaService.buscarJornadaPorId(id);
+        return new ResponseEntity<>(jornadaDTO, HttpStatus.OK);
+    }
+
+    @PutMapping (value = "/modificarJornada")
+    public ResponseEntity<JornadaDTO> modificarJornada (@RequestBody JornadaDTO jornadaDTO) throws Exception{
+        JornadaDTO jornadaResponse = jornadaService.modificarJornada(jornadaDTO);
+        return new ResponseEntity<>(jornadaResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping (value = "/buscarJornadaPorNombre/{nombre}")
+    public ResponseEntity<JornadaDTO> buscarJornadaPorNombre (@PathVariable ("nombre") String nombre) throws Exception{
+        JornadaDTO jornadaResponse = jornadaService.buscarJornadaPorNombre(nombre);
+        return new ResponseEntity<>(jornadaResponse, HttpStatus.OK);
+    }
+
 }

@@ -1,16 +1,13 @@
 package com.ligabtp.ligabetplay.controller;
 
 
-import com.ligabtp.ligabetplay.domain.TipoEvento;
-import com.ligabtp.ligabetplay.dto.ArbitroDTO;
 import com.ligabtp.ligabetplay.dto.TipoEventoDTO;
-import com.ligabtp.ligabetplay.mapper.ArbitroMapper;
-import com.ligabtp.ligabetplay.mapper.TipoEventoMapper;
-import com.ligabtp.ligabetplay.repository.TipoEventoRepository;
 import com.ligabtp.ligabetplay.repository.service.TipoEventoService;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -19,29 +16,42 @@ import java.util.List;
 public class TipoEventoController {
 
     //inyeccion independencia
-    private TipoEventoRepository tipoEventoRepository;
     private TipoEventoService tipoEventoService;
 
 
-    public TipoEventoController(TipoEventoRepository tipoEventoRepository) {
-        this.tipoEventoRepository = tipoEventoRepository;
+    public TipoEventoController() {
         this.tipoEventoService = tipoEventoService;
     }
 
 
-    @GetMapping(value = "/obtenerTipoEventos")
-    public List<TipoEventoDTO> obtenerTipoEventos(){
-        List<TipoEvento> listaTipoEventos = tipoEventoRepository.findAll();
-        List<TipoEventoDTO> tipoEventosDTO = TipoEventoMapper.domainToDTOList(listaTipoEventos);
-        return tipoEventosDTO;
-
+    @GetMapping(value = "/obtenerTipoEvento")
+    public List<TipoEventoDTO> obtenertipoEvento() {
+        return tipoEventoService.obtenerTipoEventos();
     }
 
     @PostMapping(value = "/crearNuevoTipoEvento")
-    public ResponseEntity<TipoEventoDTO> creaTipoEvento(@RequestBody TipoEventoDTO tipoEventoDTO){
-        TipoEvento tipoEvento = TipoEventoMapper.dtoToDomain(tipoEventoDTO);
-        tipoEvento = tipoEventoRepository.save(tipoEvento);
-        TipoEventoDTO tipoEventoDTOResponse = TipoEventoMapper.domainToDTO(tipoEvento);
-        return new ResponseEntity<>(tipoEventoDTOResponse, HttpStatus.CREATED);
+    public ResponseEntity<TipoEventoDTO> crearNuevoTipoEvento(@RequestBody TipoEventoDTO tipoEventoDTO) throws Exception {
+        TipoEventoDTO tipoEventoResponse = tipoEventoService.guardarNuevoTipoEvento(tipoEventoDTO);
+        return new ResponseEntity<>(tipoEventoResponse, HttpStatus.CREATED);
+    }
+
+
+    @GetMapping(value = "/buscarTipoEventoPorId/{id}")
+    public ResponseEntity<TipoEventoDTO> buscarTipoEventoPorId(@PathVariable("id") Integer id) throws Exception {
+        TipoEventoDTO tipoEventoDTO = tipoEventoService.buscarTipoEventoPorId(id);
+        return new ResponseEntity<>(tipoEventoDTO, HttpStatus.OK);
+    }
+
+
+    @PutMapping(value = "/modificarTipoEvento")
+    public ResponseEntity<TipoEventoDTO> modificarTipoEvento(@RequestBody TipoEventoDTO tipoEventoDTO) throws Exception {
+        TipoEventoDTO tipoEventoResponse = tipoEventoService.modificarTipoEvento(tipoEventoDTO);
+        return new ResponseEntity<>(tipoEventoResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/buscarTipoEventoPorNombre/{nombre}")
+    public ResponseEntity<TipoEventoDTO> buscarTipoEventoPorNombre(@PathVariable("nombre") String nombre) throws Exception {
+        TipoEventoDTO tipoEventoDTO = tipoEventoService.buscarTipoEventoPorNombre(nombre);
+        return new ResponseEntity<>(tipoEventoDTO, HttpStatus.OK);
     }
 }

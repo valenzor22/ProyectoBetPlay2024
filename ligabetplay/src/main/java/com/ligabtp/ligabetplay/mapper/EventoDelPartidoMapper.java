@@ -21,13 +21,11 @@ public class EventoDelPartidoMapper {
         return  EventoDelPartidoDTO.builder()
                 .id(eventoDelPartido.getId())
                 .partidoId((eventoDelPartido.getPartido() != null) ? eventoDelPartido.getPartido().getId() : null)
-                .jugadorId((eventoDelPartido.getJugador() != null) ? eventoDelPartido.getPartido().getId() : null)
+                .jugadorId((eventoDelPartido.getJugador() != null) ? eventoDelPartido.getJugador().getId() : null)
                 .build();
     }
 
-    public static List<EventoDelPartido> dtoToDomainList(List<EventoDelPartidoDTO> eventoDelPartidoDTO) {
-        return eventoDelPartidoDTO.stream().map(EventoDelPartidoMapper::dtoToDomain).toList();
-    }
+
     public static List<EventoDelPartidoDTO> domainToDTOList(List<EventoDelPartido> eventoDelPartido) {
         return eventoDelPartido.stream().map(EventoDelPartidoMapper::domainToDto).toList();
     }

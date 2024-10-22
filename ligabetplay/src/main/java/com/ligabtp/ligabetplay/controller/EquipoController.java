@@ -20,6 +20,7 @@ public class EquipoController {
 
 
     public EquipoController() {
+
         this.equipoService = equipoService;
     }
 

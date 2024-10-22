@@ -1,7 +1,7 @@
 package com.ligabtp.ligabetplay.repository.service;
 
 import com.ligabtp.ligabetplay.dto.EquipoDTO;
-import com.ligabtp.ligabetplay.dto.JugadorDTO;
+
 
 import java.util.List;
 

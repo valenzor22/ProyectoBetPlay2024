@@ -18,9 +18,9 @@ public class EquipoMapper {
                 .build();
     }
 
-    public static Equipo domainToDTO(Equipo equipo) {
+    public static EquipoDTO domainToDTO(Equipo equipo) {
 
-        return Equipo.builder()
+        return EquipoDTO.builder()
                 .id(equipo.getId())
                 .nombre(equipo.getNombre())
                 .ciudad(equipo.getCiudad())
@@ -29,7 +29,7 @@ public class EquipoMapper {
                 .build();
     }
 
-    public static List<Equipo> domainToDTOList(List<Equipo> equipo) {
+    public static List<EquipoDTO> domainToDTOList(List<Equipo> equipo) {
         return equipo.stream().map(EquipoMapper::domainToDTO).toList();
     }
 }
