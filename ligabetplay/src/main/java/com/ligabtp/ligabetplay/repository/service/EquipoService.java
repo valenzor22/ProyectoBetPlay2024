@@ -14,7 +14,7 @@ public interface EquipoService {
 
     EquipoDTO modificarEquipo(EquipoDTO equipoDTO) throws Exception;
 
-    EquipoDTO borrarEquipo(EquipoDTO equipoDTO) throws Exception;
+    EquipoDTO buscarEquipoPorNombre(String nombre) throws Exception;
 
 
 }

@@ -25,7 +25,7 @@ public class JugadorServicelmpl implements JugadorService {
     @Transactional(readOnly = true)
     public JugadorDTO buscarJugadorPorId(Integer id) throws Exception {
         if (id == null || id.equals(0)) {
-            throw new Exception("El id del jugador no puede ser estra vacio ni ser cero (0)");
+            throw new Exception("El id del jugador no puede ser estar vacio ni ser cero (0)");
         }
 
         Jugador jugador = jugadorRepository.findById(id)
@@ -39,7 +39,7 @@ public class JugadorServicelmpl implements JugadorService {
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public JugadorDTO guardarNuevoJugador(JugadorDTO jugadorDTO) throws Exception {
         if (jugadorDTO == null) {
-            throw new Exception("El jugadorDTO no puede ser nulo");
+            throw new Exception("El jugador no puede ser nulo");
         }
 
         if (jugadorDTO.getId() != null) {
