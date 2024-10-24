@@ -104,7 +104,7 @@ public class EventoDelPartidoServicelmpl implements EventoDelPartidoService {
                 .orElseThrow(() -> new Exception("El nombre del EventoDelPartido no existe" + nombre));
 
         return EventoDelPartidoMapper.domainToDTO(eventoDelPartido);
-}
+    }
 
 
 }
