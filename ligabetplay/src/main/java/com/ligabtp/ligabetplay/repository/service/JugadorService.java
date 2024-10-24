@@ -16,5 +16,7 @@ public interface JugadorService {
 
     JugadorDTO buscarJugadorPorNombre(String nombre) throws Exception;
 
+    void eliminarJugador(Integer id) throws Exception;
+
 
 }

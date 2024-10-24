@@ -28,7 +28,7 @@ public class EventoDelPartidoServicelmpl implements EventoDelPartidoService {
             throw new Exception("El id del EventoDelPartido no puede ser estar vacio ni ser cero (0)");
         }
 
-        EventoDelPartido eventoDelPartido = EventoDelPartidoRepository.findById(id)
+        EventoDelPartido eventoDelPartido = eventoDelPartidoRepository.findById(id)
                 .orElseThrow(() -> new Exception("No se encuentra el EventoDelPartido con el id" + id));
 
         return EventoDelPartidoMapper.domainToDTO(eventoDelPartido);
@@ -37,29 +37,29 @@ public class EventoDelPartidoServicelmpl implements EventoDelPartidoService {
 
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public EventoDelPartidoDTO guardarNuevoEventoDelPartido(EventoDelPartidoDTO EventoDelPartidoDTO) throws Exception {
-        if (EventoDelPartidoDTO == null) {
+    public EventoDelPartidoDTO guardarNuevoEventoDelPartido(EventoDelPartidoDTO eventoDelPartidoDTO) throws Exception {
+        if (eventoDelPartidoDTO == null) {
             throw new Exception("El EventoDelPartido no puede ser nulo");
         }
 
-        if (EventoDelPartidoDTO.getId() == null) {
+        if (eventoDelPartidoDTO.getId() == null) {
             throw new Exception("No debería tener ID puesto que es un Nuevo EventoDelPartido");
         }
 
-        if (EventoDelPartidoDTO.getIdJugador() == null || EventoDelPartidoDTO.getIdJugador().equals("")) {
+        if (eventoDelPartidoDTO.getIdJugador() == null || eventoDelPartidoDTO.getIdJugador().equals("")) {
             throw new Exception("El Jugador no puede ser nulo");
         }
-        if (EventoDelPartidoDTO.getMinuto() == null || EventoDelPartidoDTO.getMinuto().equals("")) {
+        if (eventoDelPartidoDTO.getMinuto() == null || eventoDelPartidoDTO.getMinuto().equals("")) {
             throw new Exception("El minuto del Evento Del Partido no puede ser nulo");
         }
-        if (EventoDelPartidoDTO.getTipoEvento() == null || EventoDelPartidoDTO.getTipoEvento().equals("")) {
+        if (eventoDelPartidoDTO.getTipoEvento() == null || eventoDelPartidoDTO.getTipoEvento().equals("")) {
             throw new Exception("El Tipo Evento del Evento Del Partido no puede ser nulo");
         }
 
 
-        EventoDelPartido EventoDelPartido = EventoDelPartidoMapper.dtoToDomain(EventoDelPartidoDTO);
-        EventoDelPartido = EventoDelPartidoRepository.save(EventoDelPartido);
-        return EventoDelPartidoMapper.domainToDTO(EventoDelPartido);
+        EventoDelPartido eventoDelPartido = EventoDelPartidoMapper.dtoToDomain(eventoDelPartidoDTO);
+        eventoDelPartido = eventoDelPartidoRepository.save(eventoDelPartido);
+        return EventoDelPartidoMapper.domainToDTO(eventoDelPartido);
     }
 
     @Override
@@ -69,28 +69,28 @@ public class EventoDelPartidoServicelmpl implements EventoDelPartidoService {
 
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public EventoDelPartidoDTO modificarEventoDelPartido(EventoDelPartidoDTO EventoDelPartidoDTO) throws Exception {
+    public EventoDelPartidoDTO modificarEventoDelPartido(EventoDelPartidoDTO eventoDelPartidoDTO) throws Exception {
 
-        if (EventoDelPartidoDTO == null) {
+        if (eventoDelPartidoDTO == null) {
             throw new Exception("El EventoDelPartido no puede ser nulo");
         }
 
-        if (EventoDelPartidoDTO.getId() == null) {
+        if (eventoDelPartidoDTO.getId() == null) {
             throw new Exception("No debería tener ID puesto que es un Nuevo EventoDelPartido");
         }
 
-        if (EventoDelPartidoDTO.getIdJugador() == null || EventoDelPartidoDTO.getIdJugador().equals("")) {
+        if (eventoDelPartidoDTO.getIdJugador() == null || eventoDelPartidoDTO.getIdJugador().equals("")) {
             throw new Exception("El Jugador no puede ser nulo");
         }
-        if (EventoDelPartidoDTO.getMinuto() == null || EventoDelPartidoDTO.getMinuto().equals("")) {
+        if (eventoDelPartidoDTO.getMinuto() == null || eventoDelPartidoDTO.getMinuto().equals("")) {
             throw new Exception("El minuto del Evento Del Partido no puede ser nulo");
         }
-        if (EventoDelPartidoDTO.getTipoEvento() == null || EventoDelPartidoDTO.getTipoEvento().equals("")) {
+        if (eventoDelPartidoDTO.getTipoEvento() == null || eventoDelPartidoDTO.getTipoEvento().equals("")) {
             throw new Exception("El Tipo Evento del Evento Del Partido no puede ser nulo");
         }
 
-        EventoDelPartido eventoDelPartido = EventoDelPartidoMapper.dtoToDomain(EventoDelPartidoDTO);
-        EventoDelPartido = EventoDelPartidoRepository.save(eventoDelPartido);
+        EventoDelPartido eventoDelPartido = EventoDelPartidoMapper.dtoToDomain(eventoDelPartidoDTO);
+        eventoDelPartido = EventoDelPartidoRepository.save(eventoDelPartido);
         return EventoDelPartidoMapper.domainToDTO(eventoDelPartido);
     }
 

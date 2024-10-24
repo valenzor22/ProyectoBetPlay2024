@@ -56,4 +56,10 @@ public class JugadorController {
         JugadorDTO jugadorDTO = jugadorService.buscarJugadorPorNombre(nombre);
         return new ResponseEntity<>(jugadorDTO, HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/eliminarJugador/{id}")
+    public ResponseEntity<Void>eliminarJugador(@PathVariable("id") Integer idJugador) throws Exception {
+        jugadorService.eliminarJugador(idJugador);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

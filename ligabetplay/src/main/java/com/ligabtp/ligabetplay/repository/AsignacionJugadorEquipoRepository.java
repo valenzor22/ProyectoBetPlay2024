@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AsignacionJugadorEquipoRepository extends JpaRepository<AsignacionJugadorEquipo, Integer> {
+
+    Boolean existsByJugadorId(Integer id);
 }
 
