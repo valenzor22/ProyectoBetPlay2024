@@ -17,33 +17,23 @@ import java.util.List;
 public class PartidoController {
 
     //inyeccion independencia
-    private PartidoRepository partidoRepository;
-    private PartidoService partidoService;
-
+    private final PartidoService partidoService;
 
 
     public PartidoController(PartidoRepository partidoRepository) {
-        this.partidoRepository = partidoRepository;
         this.partidoService = partidoService;
     }
 
 
-    @GetMapping(value = "/obtenerPartido")
-    public List<Partido> obtenerPartidos (){
-        List<Partido> listaPartidos = partidoRepository.findAll();
-        return listaPartidos;
-    }
-
     @PostMapping (value = "guardarNuevoPartido")
     public ResponseEntity<PartidoDTO>guardarNuevoPartido(@RequestBody PartidoDTO partidoDTO) throws Exception{
-        PartidoDTO partidoResponse = partidoService.guardarNuevaPartido(partidoDTO);
+        PartidoDTO partidoResponse = partidoService.guardarNuevoPartido(partidoDTO);
         return new ResponseEntity<>(partidoResponse, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/obtenerPartido")
-    public List<PartidoDTO> obtenerPartidoList(){
-        List<Partido> listaPartidos = partidoRepository.findAll();
-        return PartidoMapper.domainToDTOList(listaPartidos);
+    public List<PartidoDTO> obtenerPartidos(){
+        return partidoService.obtenerPartidos();
     }
 
     @GetMapping(value = "/buscarPartidoPorId/{id}")
@@ -54,7 +44,14 @@ public class PartidoController {
 
     @PutMapping(value = "/modificarPartido")
     public ResponseEntity<PartidoDTO> modificarPartido(@RequestBody PartidoDTO partidoDTO) throws Exception{
-        PartidoDTO partidoResponse = partidoService.guardarNuevaPartido(partidoDTO);
+        PartidoDTO partidoResponse = partidoService.modificarPartido(partidoDTO);
         return new ResponseEntity<>(partidoResponse, HttpStatus.CREATED);
     }
+}
+
+@DeleteMapping(value = "/eliminarPartido/{id}")
+public ResponseEntity<PartidoDTO> eliminarPartido(@PathVariable ("id") Integer idPartido) throws Exception{
+    partidoService.eliminarPartido(idPartido);
+    return new ResponseEntity<>(new PartidoDTO(), HttpStatus.OK);
+}
 }

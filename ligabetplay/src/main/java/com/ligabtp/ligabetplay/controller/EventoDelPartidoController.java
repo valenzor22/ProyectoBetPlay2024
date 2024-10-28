@@ -24,24 +24,22 @@ public class EventoDelPartidoController {
     }
 
 
-    @GetMapping(value = "/obtenerEventoDelPartido")
-    public List<EventoDelPartidoDTO> obtenereventoDelPartido() {
-       return eventoDelPartidoService.obtenerEventoDelPartido();
-    }
-
-    @PostMapping(value = "/crearNuevoEventoDelPartido")
-    public ResponseEntity<EventoDelPartidoDTO> crearNuevoEventoDelPartido(@RequestBody EventoDelPartidoDTO eventoDelPartidoDTO) throws Exception {
+    @PostMapping(value = "/guardaeEventoDelPartido")
+    public ResponseEntity<EventoDelPartidoDTO> guardarEventoDelPartido(@RequestBody EventoDelPartidoDTO eventoDelPartidoDTO) throws Exception {
         EventoDelPartidoDTO eventoDelPartidoResponse = eventoDelPartidoService.guardarNuevoEventoDelPartido(eventoDelPartidoDTO);
         return new ResponseEntity<>(eventoDelPartidoResponse, HttpStatus.CREATED);
     }
 
-
-    @GetMapping(value = "/buscarEventoDelPartidoPorId/{id}")
-    public ResponseEntity<EventoDelPartidoDTO> buscarEventoDelPartidoPorId(@PathVariable("id") Integer id) throws Exception {
-        EventoDelPartidoDTO eventoDelPartidoDTO = EventoDelPartidoService.buscarEventoDelPartidoPorId(id);
-        return new ResponseEntity<>(eventoDelPartidoDTO, HttpStatus.OK);
+    @GetMapping(value = "/obtenerEventoDelPartido")
+    public List<EventoDelPartidoDTO> obtenereventoDelPartido() {
+       return eventoDelPartidoService.obtenerEventoDelPartidos();
     }
 
+    @GetMapping(value = "/buscarEventoDelPartidoPorId/{id}")
+    public ResponseEntity<EventoDelPartidoDTO> buscarEventoDelPartidoPorId(@PathVariable Integer id) throws Exception {
+        EventoDelPartidoDTO eventoDelPartidoDTO = eventoDelPartidoService.buscarEventoDelPartidoPorId(id);
+        return new ResponseEntity<>(eventoDelPartidoDTO, HttpStatus.OK);
+    }
 
     @PutMapping(value = "/modificarEventoDelPartido")
     public ResponseEntity<EventoDelPartidoDTO> modificarEventoDelPartido(@RequestBody EventoDelPartidoDTO eventoDelPartidoDTO) throws Exception {
@@ -49,9 +47,12 @@ public class EventoDelPartidoController {
         return new ResponseEntity<>(eventoDelPartidoResponse, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/buscarEventoDelPartidoPorNombre/{nombre}")
-    public ResponseEntity<EventoDelPartidoDTO> buscarEventoDelPartidoPorNombre(@PathVariable("nombre") String nombre) throws Exception {
-        EventoDelPartidoDTO eventoDelPartidoDTO = eventoDelPartidoService.buscarEventoDelPartidoPorNombre(nombre);
-        return new ResponseEntity<>(eventoDelPartidoDTO, HttpStatus.OK);
-}
+    @DeleteMapping(value = "/eliminarEventoDelPartido/{id}")
+    public ResponseEntity<Object> eliminarEventoDelPartido(@PathVariable("id") Integer idEventoDelPartido) throws Exception {
+        eventoDelPartidoService.eliminarEventoDelPartido(idEventoDelPartido);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+
 }

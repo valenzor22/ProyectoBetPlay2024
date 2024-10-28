@@ -3,7 +3,6 @@ package com.ligabtp.ligabetplay.repository.service.implementation;
 
 import com.ligabtp.ligabetplay.domain.AsignacionJugadorEquipo;
 import com.ligabtp.ligabetplay.domain.Equipo;
-import com.ligabtp.ligabetplay.domain.Jugador;
 import com.ligabtp.ligabetplay.dto.AsignacionJugadorEquipoDTO;
 import com.ligabtp.ligabetplay.mapper.AsignacionJugadorEquipoMapper;
 import com.ligabtp.ligabetplay.repository.AsignacionJugadorEquipoRepository;
@@ -14,6 +13,8 @@ import com.ligabtp.ligabetplay.repository.service.AsignacionJugadorEquipoService
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEquipoService {
@@ -51,27 +52,14 @@ public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEqui
             throw new Exception("El equipo no debe ser nulo");
         }
 
-
         AsignacionJugadorEquipo asignacionJugadorEquipo = AsignacionJugadorEquipoMapper.dtoToDomain(asignacionJugadorEquipoDTO);
-        Equipo equipo = equipoRepository.getReferenceById(asignacionJugadorEquipoDTO.getEquipoId());
-
-        if(equipo == null){
-            throw new Exception("El equipo no existe");
-        }
-
-        Jugador jugador = jugadorRepository.getReferenceById(asignacionJugadorEquipoDTO.getJugadorId());
-
-        if (jugador == null){
-            throw new Exception("El jugador no existe");
-        }
-
+        Equipo equipo = EquipoRepository.finById(AsignacionJugadorEquipoDTO.getEquipoId())
+                .orElseThrow(() -> new Exception("El equipo no existe"));
 
         asignacionJugadorEquipo.setEquipo(equipo);
-        asignacionJugadorEquipo.setJugador(jugador);
-        asignacionJugadorEquipo = asignacionJugadorEquipoRepository.save(asignacionJugadorEquipo);
+        asignacionJugadorEquipo =  asignacionJugadorEquipoRepository.save(asignacionJugadorEquipo);
 
         return AsignacionJugadorEquipoMapper.domainToDto(asignacionJugadorEquipo);
-
     }
 
 
@@ -83,13 +71,11 @@ public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEqui
             throw new Exception("El id del asignacion no puede ser null");
         }
 
-        AsignacionJugadorEquipo asignacionJugadorEquipo = asignacionJugadorEquipoRepository.getReferenceById(id);
-        if(asignacionJugadorEquipo == null){
-            throw new Exception("El asignacion no existe"+ id);
-        }
+       AsignacionJugadorEquipo asignacionJugadorEquipo = asignacionJugadorEquipoRepository.findById(id)
+               .orElseThrow(() -> new Exception("No se encuentra la asignacion jugador equipo con el id" +id));
 
         AsignacionJugadorEquipoDTO asignacionJugadorEquipoDTO = AsignacionJugadorEquipoMapper.domainToDto(asignacionJugadorEquipo);
-        return null;
+        return asignacionJugadorEquipoDTO;
     }
 
     @Override
@@ -115,24 +101,42 @@ public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEqui
         }
 
         AsignacionJugadorEquipo asignacionJugadorEquipo = AsignacionJugadorEquipoMapper.dtoToDomain(asignacionJugadorEquipoDTO);
-        Equipo equipo = equipoRepository.getReferenceById(asignacionJugadorEquipoDTO.getEquipoId());
-
-        if(equipo == null){
-            throw new Exception("El equipo no existe");
-        }
-
-        Jugador jugador = jugadorRepository.getReferenceById(asignacionJugadorEquipoDTO.getJugadorId());
-
-        if (jugador == null){
-            throw new Exception("El jugador no existe");
-        }
-
+        Equipo equipo = EquipoRepository.finById(AsignacionJugadorEquipoDTO.getEquipoId())
+                .orElseThrow(() -> new Exception("El equipo no existe"));
 
         asignacionJugadorEquipo.setEquipo(equipo);
-        asignacionJugadorEquipo.setJugador(jugador);
-        asignacionJugadorEquipo = asignacionJugadorEquipoRepository.save(asignacionJugadorEquipo);
+        asignacionJugadorEquipo =  asignacionJugadorEquipoRepository.save(asignacionJugadorEquipo);
 
         return AsignacionJugadorEquipoMapper.domainToDto(asignacionJugadorEquipo);
+
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<AsignacionJugadorEquipoDTO> obtenerAsignacionJugadorEquipos() {
+       List<AsignacionJugadorEquipo> listaAsignacionJugadorEquipos = asignacionJugadorEquipoRepository.findAll();
+       List<AsignacionJugadorEquipoDTO> listaAsignacionJugadorEquiposDTO = AsignacionJugadorEquipoMapper.domainToDTOList(listaAsignacionJugadorEquipos);
+       return listaAsignacionJugadorEquiposDTO;
+    }
+
+    @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    public void eliminarAsignacionJugadorEquipo(Integer id) throws Exception {
+        if(id == null || id.equals(0)) {
+            throw new Exception("El id del asignacion no puede ser null o cero");
+        }
+
+        Boolean existe = asignacionJugadorEquipoRepository.existsById(id);
+        if(existeAsignacionJugadorEquipo == false) {
+            throw new Exception("No existe la asigancion con el id" + id + "por lo tanto no se puede eliminar");
+        }
+
+        Boolean existeJugador = jugadorRepository.existsByAsignacionJugadorEquipoId(id);
+        if(existeJugador == true) {
+            throw new Exception("La asignacion con el id" + id + "tiene jugadores asociados por lo tanto no se puede eliminar");
+        }
+
+        asignacionJugadorEquipoRepository.deleteById(id);
 
     }
 

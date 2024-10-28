@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -16,11 +17,17 @@ import java.util.List;
 public class TipoEventoController {
 
     //inyeccion independencia
-    private TipoEventoService tipoEventoService;
+    private final TipoEventoService tipoEventoService;
 
 
-    public TipoEventoController() {
+    public TipoEventoController(TipoEventoService tipoEventoService) {
         this.tipoEventoService = tipoEventoService;
+    }
+
+    @PostMapping(value = "/guardarTipoEvento")
+    public ResponseEntity<TipoEventoDTO> guardarTipoEvento(@RequestBody TipoEventoDTO tipoEventoDTO) throws Exception {
+        TipoEventoDTO tipoEventoResponse = tipoEventoService.guardarNuevoTipoEvento(tipoEventoDTO);
+        return new ResponseEntity<>(tipoEventoResponse, HttpStatus.CREATED);
     }
 
 
@@ -29,19 +36,11 @@ public class TipoEventoController {
         return tipoEventoService.obtenerTipoEventos();
     }
 
-    @PostMapping(value = "/crearNuevoTipoEvento")
-    public ResponseEntity<TipoEventoDTO> crearNuevoTipoEvento(@RequestBody TipoEventoDTO tipoEventoDTO) throws Exception {
-        TipoEventoDTO tipoEventoResponse = tipoEventoService.guardarNuevoTipoEvento(tipoEventoDTO);
-        return new ResponseEntity<>(tipoEventoResponse, HttpStatus.CREATED);
-    }
-
-
     @GetMapping(value = "/buscarTipoEventoPorId/{id}")
-    public ResponseEntity<TipoEventoDTO> buscarTipoEventoPorId(@PathVariable("id") Integer id) throws Exception {
+    public ResponseEntity<TipoEventoDTO> buscarTipoEventoPorId(@PathVariable Integer id) throws Exception {
         TipoEventoDTO tipoEventoDTO = tipoEventoService.buscarTipoEventoPorId(id);
         return new ResponseEntity<>(tipoEventoDTO, HttpStatus.OK);
     }
-
 
     @PutMapping(value = "/modificarTipoEvento")
     public ResponseEntity<TipoEventoDTO> modificarTipoEvento(@RequestBody TipoEventoDTO tipoEventoDTO) throws Exception {
@@ -49,9 +48,9 @@ public class TipoEventoController {
         return new ResponseEntity<>(tipoEventoResponse, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/buscarTipoEventoPorNombre/{nombre}")
-    public ResponseEntity<TipoEventoDTO> buscarTipoEventoPorNombre(@PathVariable("nombre") String nombre) throws Exception {
-        TipoEventoDTO tipoEventoDTO = tipoEventoService.buscarTipoEventoPorNombre(nombre);
-        return new ResponseEntity<>(tipoEventoDTO, HttpStatus.OK);
-    }
+   @DeleteMapping(value = "/eliminarTipoEvento/{id}")
+    public ResponseEntity<TipoEventoDTO> eliminarTipoEvento(@PathVariable("id") Integer idTipoEvento) throws Exception {
+        tipoEventoService.eliminarTipoEvento(idTipoEvento);
+        return new ResponseEntity<>(HttpStatus.OK);
+   }
 }

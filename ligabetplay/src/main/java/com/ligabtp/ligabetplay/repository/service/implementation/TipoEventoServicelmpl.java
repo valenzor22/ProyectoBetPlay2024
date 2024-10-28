@@ -21,6 +21,29 @@ public class TipoEventoServicelmpl implements TipoEventoService {
         this.tipoEventoRepository = tipoEventoRepository;
     }
 
+
+    @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    public TipoEventoDTO guardarNuevoTipoEvento(TipoEventoDTO tipoEventoDTO) throws Exception {
+        if (tipoEventoDTO == null) {
+            throw new Exception("El tipo evento no puede ser nulo");
+        }
+
+        if (tipoEventoDTO.getId() != null) {
+            throw new Exception("No debería tener ID puesto que es un Nuevo Tipo de evento");
+        }
+        if (tipoEventoDTO.getNombre() != null) {
+            throw new Exception("El nombre no deberia de ser nulo");
+        }
+
+
+
+        TipoEvento tipoEvento = TipoEventoMapper.dtoToDomain(tipoEventoDTO);
+        tipoEvento = tipoEventoRepository.save(tipoEvento);
+        return TipoEventoMapper.domainToDTO(tipoEvento);
+    }
+
+
     @Override
     @Transactional(readOnly = true)
     public TipoEventoDTO buscarTipoEventoPorId(Integer id) throws Exception {
@@ -37,39 +60,9 @@ public class TipoEventoServicelmpl implements TipoEventoService {
 
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public TipoEventoDTO guardarNuevoTipoEvento(TipoEventoDTO tipoEventoDTO) throws Exception {
-        if (tipoEventoDTO == null) {
-            throw new Exception("El tipo evento no puede ser nulo");
-        }
-
-        if (tipoEventoDTO.getId() != null) {
-            throw new Exception("No debería tener ID puesto que es un Nuevo Tipo de evento");
-        }
-        if (tipoEventoDTO.getNombre() != null) {
-            throw new Exception("No debería tener ID puesto que es un Nuevo Nombre del eveneto");
-        }
-
-
-
-        TipoEvento tipoEvento = TipoEventoMapper.dtoToDomain(tipoEventoDTO);
-        tipoEvento = tipoEventoRepository.save(tipoEvento);
-        return TipoEventoMapper.domainToDTO(tipoEvento);
-    }
-
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<TipoEventoDTO> obtenerTipoEventos() {
-        List<TipoEvento> listaTipoEventos = tipoEventoRepository.findAll();
-        List<TipoEventoDTO> tipoEventoDTO = TipoEventoMapper.domainToDTOList(listaTipoEventos);
-        return tipoEventoDTO;
-    }
-
-    @Override
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public TipoEventoDTO modificarTipoEvento(TipoEventoDTO tipoEventoDTO) throws Exception {
         if (tipoEventoDTO == null) {
-            throw new Exception("El tipoEventoDTO no puede ser nulo");
+            throw new Exception("El tipoEvento no puede ser nulo");
         }
 
         if (tipoEventoDTO.getId() == null) {
@@ -85,16 +78,25 @@ public class TipoEventoServicelmpl implements TipoEventoService {
     }
 
     @Override
-    public TipoEventoDTO buscarTipoEventoPorNombre(String nombre) throws Exception {
-        if(nombre == null || nombre.equals("")) {
-            throw new Exception("El nombre del tipo de evento no puede ser nulo o estar vacio");
+    @Transactional(readOnly = true)
+    public List<TipoEventoDTO> obtenerTipoEventos(){
+        List<TipoEvento> listaTipoEventos = tipoEventoRepository.findAll();
+        List<TipoEventoDTO> listaTipoEventosDTO = TipoEventoMapper.domainToDTOList(listaTipoEventos);
+        return listaTipoEventosDTO;
+    }
+
+
+    @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    public void eliminarTipoEvento(Integer id) throws Exception {
+        if (id == null || id.equals(0)) {
+            throw new Exception("El id del tipo evento no puede ser nulo o cero");
         }
 
-        TipoEvento tipoEvento = tipoEventoRepository.findByNombre(nombre)
-                .orElseThrow(() -> new Exception("El nombre del Tipo Evento no existe" + nombre));
+        //hay que completar
 
-        return TipoEventoMapper.domainToDTO(tipoEvento);
     }
+
 
 
 }

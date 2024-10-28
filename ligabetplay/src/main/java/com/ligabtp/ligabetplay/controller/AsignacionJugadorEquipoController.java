@@ -1,10 +1,6 @@
 package com.ligabtp.ligabetplay.controller;
 
-
-import com.ligabtp.ligabetplay.domain.AsignacionJugadorEquipo;
 import com.ligabtp.ligabetplay.dto.AsignacionJugadorEquipoDTO;
-import com.ligabtp.ligabetplay.mapper.AsignacionJugadorEquipoMapper;
-import com.ligabtp.ligabetplay.repository.AsignacionJugadorEquipoRepository;
 import com.ligabtp.ligabetplay.repository.service.AsignacionJugadorEquipoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,24 +15,14 @@ import java.util.List;
 public class AsignacionJugadorEquipoController {
 
     //inyeccion independencia
-    private AsignacionJugadorEquipoRepository asignacionJugadorEquipoRepository;
-    private AsignacionJugadorEquipoService asignacionJugadorEquipoService;
+    private final AsignacionJugadorEquipoService asignacionJugadorEquipoService;
 
 
-    public AsignacionJugadorEquipoController(AsignacionJugadorEquipoRepository asignacionJugadorEquipoRepository, AsignacionJugadorEquipoService asignacionJugadorEquipoService) {
-        this.asignacionJugadorEquipoRepository = asignacionJugadorEquipoRepository;
+    public AsignacionJugadorEquipoController(AsignacionJugadorEquipoService asignacionJugadorEquipoService) {
         this.asignacionJugadorEquipoService = asignacionJugadorEquipoService;
     }
 
-
-    @GetMapping(value = "/obtenerAsignacionJugadorEquipo")
-    public List<AsignacionJugadorEquipo> obtenerAsignacionJugadorEquipo (){
-        List<AsignacionJugadorEquipo> listaAsignacionesJugadoresEquipos = asignacionJugadorEquipoRepository.findAll();
-        return listaAsignacionesJugadoresEquipos;
-
-    }
-
-    @PostMapping(value = "guardarNuevaAsignacionJugadorEquipo")
+    @PostMapping(value = "/guardarNuevaAsignacionJugadorEquipo")
     public ResponseEntity<AsignacionJugadorEquipoDTO> guardarNuevaAsignacionJugadorEquipo(@RequestBody AsignacionJugadorEquipoDTO asignacionJugadorEquipoDTO) throws Exception {
         AsignacionJugadorEquipoDTO asignacionJugadorEquipoResponse = asignacionJugadorEquipoService.guardarNuevaAsignacionJugadorEquipo(asignacionJugadorEquipoDTO);
         return new ResponseEntity<>(asignacionJugadorEquipoResponse, HttpStatus.CREATED);
@@ -44,9 +30,9 @@ public class AsignacionJugadorEquipoController {
     }
 
     @GetMapping(value = "/obtenerAsignacionJugadorEquipo")
-    public List<AsignacionJugadorEquipoDTO> obtenerAsignacionJugadorEquipoList(){
-        List<AsignacionJugadorEquipo> listaAsignacionesJugadoresEquipos = asignacionJugadorEquipoRepository.findAll();
-        return AsignacionJugadorEquipoMapper.domainToDTOList(listaAsignacionesJugadoresEquipos);
+    public List<AsignacionJugadorEquipoDTO> obtenerAsignacionJugadorEquipo (){
+        return asignacionJugadorEquipoService.obtenerAsignacionJugadorEquipos();
+
     }
 
     @GetMapping(value = "/buscarAsignacionJugadorEquipoPorId/{id}")
@@ -56,9 +42,15 @@ public class AsignacionJugadorEquipoController {
     }
 
     @PutMapping(value = "/modificarNuevaAsignacionJugadorEquipo")
-    public ResponseEntity<AsignacionJugadorEquipoDTO> modificarNuevaAsignacionJugadorEquipo(@RequestBody AsignacionJugadorEquipoDTO asignacionJugadorEquipoDTO) throws Exception {
-        AsignacionJugadorEquipoDTO asignacionJugadorEquipoResponse = asignacionJugadorEquipoService.guardarNuevaAsignacionJugadorEquipo(asignacionJugadorEquipoDTO);
-        return new ResponseEntity<>(asignacionJugadorEquipoResponse, HttpStatus.CREATED);
-
+    public ResponseEntity<AsignacionJugadorEquipoDTO> modificarAsignacionJugadorEquipo(@RequestBody AsignacionJugadorEquipoDTO asignacionJugadorEquipoDTO) throws Exception {
+        AsignacionJugadorEquipoDTO asignacionJugadorEquipoResponse = asignacionJugadorEquipoService.modificarAsignacionJugadorEquipo(asignacionJugadorEquipoDTO);
+        return new ResponseEntity<>(asignacionJugadorEquipoResponse, HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/eliminarAsignacionJUgadorEquipo/{id}")
+    public ResponseEntity<Void> eliminarAsignacionJugadorEquipo(@PathVariable ("id")Integer idAsignacionJugadorEquipo) throws Exception {
+        asignacionJugadorEquipoService.eliminarAsignacionJugadorEquipo(idAsignacionJugadorEquipo);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

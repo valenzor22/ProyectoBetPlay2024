@@ -19,35 +19,24 @@ import java.util.List;
 public class PartidoyArbitroController {
 
     //inyeccion independencia
-    private PartidoyArbitroRepository partidoyArbitroRepository;
-    private PartidoyArbitroService partidoyArbitroService;
+    private final PartidoyArbitroService partidoyArbitroService;
 
 
-    public PartidoyArbitroController(PartidoyArbitroRepository partidoyArbitroRepository, PartidoyArbitroService partidoyArbitroService) {
-        this.partidoyArbitroRepository = partidoyArbitroRepository;
-        this.partidoyArbitroService = partidoyArbitroService;
-    }
-
-
-    @GetMapping(value = "/obtenerPartidoyArbitro")
-    public List<PartidoyArbitro> obtenerPartidoyArbitro (){
-        List<PartidoyArbitro> listaPartidoyArbitro = partidoyArbitroRepository.findAll();
-        return listaPartidoyArbitro;
-
+    public PartidoyArbitroController(PartidoyArbitroService partidoyArbitroService) {
+       this.partidoyArbitroService = partidoyArbitroService;
     }
 
     @PostMapping(value = "guardarNuevoPartidoyArbitro")
     public ResponseEntity<PartidoyArbitroDTO> guardarNuevoPartidoyArbitro(@RequestBody PartidoyArbitroDTO partidoyArbitroDTO) throws Exception {
         PartidoyArbitroDTO partidoyArbitroResponse = partidoyArbitroService.guardarNuevoPartidoyArbitro(partidoyArbitroDTO);
         return new ResponseEntity<>(partidoyArbitroResponse, HttpStatus.CREATED);
-
     }
 
     @GetMapping(value = "/obtenerPartidoyArbitro")
-    public List<PartidoyArbitroDTO> obtenerPartidoyArbitroList(){
-        List<PartidoyArbitro> listaPartidosyArbitros = partidoyArbitroRepository.findAll();
-        return PartidoyArbitroMapper.domainToDTOList(listaPartidosyArbitros);
+     public List<PartidoyArbitroDTO> obtenerPartidoyArbitro() {
+        return partidoyArbitroService.obtenerPartidoyArbitros();
     }
+
 
     @GetMapping(value = "/buscarPartidoyArbitroPorId/{id}")
     public ResponseEntity<PartidoyArbitroDTO> buscarPartidoyArbitroPorId(@PathVariable Integer id) throws Exception {
@@ -59,5 +48,11 @@ public class PartidoyArbitroController {
     public ResponseEntity<PartidoyArbitroDTO> modificarNuevoPartidoyArbitro(@RequestBody PartidoyArbitroDTO partidoyArbitroDTO) throws Exception {
         PartidoyArbitroDTO partidoyArbitroResponse = partidoyArbitroService.guardarNuevoPartidoyArbitro(partidoyArbitroDTO);
         return new ResponseEntity<>(partidoyArbitroResponse, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "/eliminarPartidoyArbitro/{id}")
+    public ResponseEntity<String> eliminarPartidoyArbitro(@PathVariable ("id") Integer idPartidoyArbitro) throws Exception {
+        partidoyArbitroService.eliminarPartidoyArbitro(idPartidoyArbitro);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

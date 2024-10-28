@@ -8,4 +8,5 @@ import java.util.Optional;
 @Repository
 public interface JugadorRepository extends JpaRepository<Jugador, Integer> {
     Optional<Jugador> findByNombre(String nombre);
+    Boolean existsByAsignacionJugadorEquipoId(Integer asignacionJugadorEquipoId);  // preguntar
 }

@@ -1,9 +1,6 @@
 package com.ligabtp.ligabetplay.controller;
 
-import com.ligabtp.ligabetplay.domain.EstadisticaDelPartido;
 import com.ligabtp.ligabetplay.dto.EstadisticaDelPartidoDTO;
-import com.ligabtp.ligabetplay.mapper.EstadisticaDelPartidoMapper;
-import com.ligabtp.ligabetplay.repository.EstadisticaDelPartidoRepository;
 import com.ligabtp.ligabetplay.repository.service.EstadisticaDelPartidoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,33 +13,24 @@ import java.util.List;
 public class EstadisticaDelPartidoController {
 
     //inyeccion independencia
-    private EstadisticaDelPartidoRepository estadisticaDelPartidoRepository;
-    private EstadisticaDelPartidoService estadisticaDelPartidoService;
+    private final EstadisticaDelPartidoService estadisticaDelPartidoService;
 
 
-    public EstadisticaDelPartidoController(EstadisticaDelPartidoRepository estadisticaDelPartidoRepository, EstadisticaDelPartidoService estadisticaDelPartidoService) {
-        this.estadisticaDelPartidoRepository = estadisticaDelPartidoRepository;
+    public EstadisticaDelPartidoController(EstadisticaDelPartidoService estadisticaDelPartidoService) {
         this.estadisticaDelPartidoService = estadisticaDelPartidoService;
     }
 
-
-    @GetMapping(value = "/obtenerEstadisticadelPartidos")
-    public List<EstadisticaDelPartido> obtenerEstadisticaDelPartidos (){
-        List<EstadisticaDelPartido> listaEstadisticasDelPartidos = estadisticaDelPartidoRepository.findAll();
-        return listaEstadisticasDelPartidos;
+    @PostMapping(value = "/guardarEstadisticadelPartido")
+    public ResponseEntity<EstadisticaDelPartidoDTO> guardarEstadisticadelPartido(@RequestBody EstadisticaDelPartidoDTO estadisticaDelPartidoDTO) throws Exception {
+        EstadisticaDelPartidoDTO estadisticasDelPartidoResponse = estadisticaDelPartidoService.guardarNuevaEstadisticaDelPartido(estadisticaDelPartidoDTO);
+        return new ResponseEntity<>(estadisticasDelPartidoResponse, HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/obtenerEstadisticaDelPartido")
-    public ResponseEntity<EstadisticaDelPartidoDTO> obtenerEstadisticaDelPartidoList(@RequestBody EstadisticaDelPartidoDTO estadisticaDelPartidoDTO) throws Exception{
-        EstadisticaDelPartidoDTO estadisticaDelPartidoResponse = estadisticaDelPartidoService.guardarNuevaEstadisticaDelPartido(estadisticaDelPartidoDTO);
-        return new ResponseEntity<>(estadisticaDelPartidoResponse, HttpStatus.CREATED);
+    @GetMapping(value = "/obtenerEstadisticadelPartido")
+    public List<EstadisticaDelPartidoDTO> obtenerestadisticaDelPartido (){
+        return estadisticaDelPartidoService.obtenerEstadisticadelPartidos();
     }
 
-    @GetMapping(value = "/obtenerEstadisticaDelPartidos")
-    public List<EstadisticaDelPartidoDTO> obtenerEstadisticaDelPartidosList (){
-        List<EstadisticaDelPartido> listaEstadisticasDelPartidos = estadisticaDelPartidoRepository.findAll();
-        return EstadisticaDelPartidoMapper.domainToDTOList(listaEstadisticasDelPartidos);
-    }
 
    @GetMapping(value = "buscarEstadisticaDelPartidoPorId/{id}")
    public ResponseEntity<EstadisticaDelPartidoDTO> obtenerEstadisticaDelPartidoPorId(@PathVariable Integer id)throws Exception{
@@ -51,9 +39,14 @@ public class EstadisticaDelPartidoController {
    }
 
     @PutMapping(value = "/modificarEstadisticadelPartidos")
-    public ResponseEntity<EstadisticaDelPartidoDTO> modificarNuevaEstadisticaDelPartidoDTO(@RequestBody EstadisticaDelPartidoDTO estadisticaDelPartidoDTO) throws Exception {
-        EstadisticaDelPartidoDTO estadisticaDelPartidoResponse = estadisticaDelPartidoService.guardarNuevaEstadisticaDelPartido(estadisticaDelPartidoDTO);
+    public ResponseEntity<EstadisticaDelPartidoDTO> modificarEstadisticaDelPartido(@RequestBody EstadisticaDelPartidoDTO estadisticaDelPartidoDTO) throws Exception {
+        EstadisticaDelPartidoDTO estadisticaDelPartidoResponse = estadisticaDelPartidoService.modificarNuevaEstadisticaDelPartido(estadisticaDelPartidoDTO);
         return new ResponseEntity<>(estadisticaDelPartidoResponse, HttpStatus.CREATED);
+    }
 
+    @DeleteMapping(value = "/eliminarEstadisticaDelPartido/{id}")
+    public ResponseEntity<EstadisticaDelPartidoDTO> eliminarNuevaEstadisticaDelPartido(@PathVariable ("id") Integer idEstadisticaDelPartido) throws Exception {
+        estadisticaDelPartidoService.eliminarEstadisticaDelPartido(idEstadisticaDelPartido);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

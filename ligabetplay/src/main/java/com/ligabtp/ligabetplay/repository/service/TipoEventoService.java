@@ -6,15 +6,15 @@ import com.ligabtp.ligabetplay.dto.TipoEventoDTO;
 import java.util.List;
 
 public interface TipoEventoService {
-    TipoEventoDTO buscarTipoEventoPorId(Integer id) throws Exception;
-
     TipoEventoDTO guardarNuevoTipoEvento(TipoEventoDTO tipoEventoDTO) throws Exception;
 
-    List<TipoEventoDTO> obtenerTipoEventos();
+    TipoEventoDTO buscarTipoEventoPorId(Integer id) throws Exception;
 
     TipoEventoDTO modificarTipoEvento(TipoEventoDTO tipoEventoDTO) throws Exception;
 
-    TipoEventoDTO buscarTipoEventoPorNombre(String nombre) throws Exception;
+    List<TipoEventoDTO> obtenerTipoEventos();
+
+   void eliminarTipoEvento(Integer id) throws Exception;
 
 
 }
