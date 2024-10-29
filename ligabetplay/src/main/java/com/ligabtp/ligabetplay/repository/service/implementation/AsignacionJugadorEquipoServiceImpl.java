@@ -1,6 +1,5 @@
 package com.ligabtp.ligabetplay.repository.service.implementation;
 
-
 import com.ligabtp.ligabetplay.domain.AsignacionJugadorEquipo;
 import com.ligabtp.ligabetplay.domain.Equipo;
 import com.ligabtp.ligabetplay.dto.AsignacionJugadorEquipoDTO;
@@ -9,12 +8,13 @@ import com.ligabtp.ligabetplay.repository.AsignacionJugadorEquipoRepository;
 import com.ligabtp.ligabetplay.repository.EquipoRepository;
 import com.ligabtp.ligabetplay.repository.JugadorRepository;
 import com.ligabtp.ligabetplay.repository.service.AsignacionJugadorEquipoService;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEquipoService {
@@ -29,116 +29,99 @@ public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEqui
         this.jugadorRepository = jugadorRepository;
     }
 
-
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public AsignacionJugadorEquipoDTO guardarNuevaAsignacionJugadorEquipo(AsignacionJugadorEquipoDTO asignacionJugadorEquipoDTO) throws Exception {
-        //Validacion 1 id debe ser null
-        if(asignacionJugadorEquipoDTO.getId() != null){
-            throw new Exception("El debe de ser nulo");
+        if (asignacionJugadorEquipoDTO.getId() != null) {
+            throw new Exception("El ID debe ser nulo");
         }
 
-        //Validacion 2 llegue al fecha inicio
-        if(asignacionJugadorEquipoDTO.getFechaInicio() == null || asignacionJugadorEquipoDTO.getFechaInicio().equals("")){
-            throw new Exception("La fecha inicio debe ser no nula");
+        if (StringUtils.isEmpty(asignacionJugadorEquipoDTO.getFechaInicio())) {
+            throw new Exception("La fecha de inicio debe ser no nula");
         }
 
-        //Validacion 3 llegue al fecha fin
-        if(asignacionJugadorEquipoDTO.getFechaFin() == null || asignacionJugadorEquipoDTO.getFechaFin().equals("")){
-            throw new Exception("La fecha fin debe ser no nula");
+        if (StringUtils.isEmpty(asignacionJugadorEquipoDTO.getFechaFin())) {
+            throw new Exception("La fecha de fin debe ser no nula");
         }
 
-        if(asignacionJugadorEquipoDTO.getEquipoId() ==null){
+        if (asignacionJugadorEquipoDTO.getEquipoId() == null) {
             throw new Exception("El equipo no debe ser nulo");
         }
 
         AsignacionJugadorEquipo asignacionJugadorEquipo = AsignacionJugadorEquipoMapper.dtoToDomain(asignacionJugadorEquipoDTO);
-        Equipo equipo = EquipoRepository.finById(AsignacionJugadorEquipoDTO.getEquipoId())
+        Equipo equipo = equipoRepository.findById(asignacionJugadorEquipoDTO.getEquipoId())
                 .orElseThrow(() -> new Exception("El equipo no existe"));
 
         asignacionJugadorEquipo.setEquipo(equipo);
-        asignacionJugadorEquipo =  asignacionJugadorEquipoRepository.save(asignacionJugadorEquipo);
+        asignacionJugadorEquipo = asignacionJugadorEquipoRepository.save(asignacionJugadorEquipo);
 
         return AsignacionJugadorEquipoMapper.domainToDto(asignacionJugadorEquipo);
     }
 
-
     @Override
     @Transactional(readOnly = true)
     public AsignacionJugadorEquipoDTO buscarAsignacionJugadorEquipoPorId(Integer id) throws Exception {
-
-        if(id == null || id.equals(0)) {
-            throw new Exception("El id del asignacion no puede ser null");
+        if (id == null || id.equals(0)) {
+            throw new Exception("El ID de la asignación no puede ser nulo o cero");
         }
 
-       AsignacionJugadorEquipo asignacionJugadorEquipo = asignacionJugadorEquipoRepository.findById(id)
-               .orElseThrow(() -> new Exception("No se encuentra la asignacion jugador equipo con el id" +id));
+        AsignacionJugadorEquipo asignacionJugadorEquipo = asignacionJugadorEquipoRepository.findById(id)
+                .orElseThrow(() -> new Exception("No se encuentra la asignación jugador equipo con el ID " + id));
 
-        AsignacionJugadorEquipoDTO asignacionJugadorEquipoDTO = AsignacionJugadorEquipoMapper.domainToDto(asignacionJugadorEquipo);
-        return asignacionJugadorEquipoDTO;
+        return AsignacionJugadorEquipoMapper.domainToDto(asignacionJugadorEquipo);
     }
 
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public AsignacionJugadorEquipoDTO modificarAsignacionJugadorEquipo(AsignacionJugadorEquipoDTO asignacionJugadorEquipoDTO) throws Exception {
-        //Logica de
-        if(asignacionJugadorEquipoDTO.getId() == null){
-            throw new Exception("El debe de ser nulo");
+        if (asignacionJugadorEquipoDTO.getId() == null) {
+            throw new Exception("El ID no debe ser nulo");
         }
 
-        //Validacion 2 llegue al fecha inicio
-        if(asignacionJugadorEquipoDTO.getFechaInicio() == null || asignacionJugadorEquipoDTO.getFechaInicio().equals("")){
-            throw new Exception("La fecha inicio debe ser no nula");
+        if (StringUtils.isEmpty(asignacionJugadorEquipoDTO.getFechaInicio())) {
+            throw new Exception("La fecha de inicio debe ser no nula");
         }
 
-        //Validacion 3 llegue al fecha fin
-        if(asignacionJugadorEquipoDTO.getFechaFin() == null || asignacionJugadorEquipoDTO.getFechaFin().equals("")){
-            throw new Exception("La fecha fin debe ser no nula");
+        if (StringUtils.isEmpty(asignacionJugadorEquipoDTO.getFechaFin())) {
+            throw new Exception("La fecha de fin debe ser no nula");
         }
 
-        if(asignacionJugadorEquipoDTO.getEquipoId() ==null){
+        if (asignacionJugadorEquipoDTO.getEquipoId() == null) {
             throw new Exception("El equipo no debe ser nulo");
         }
 
         AsignacionJugadorEquipo asignacionJugadorEquipo = AsignacionJugadorEquipoMapper.dtoToDomain(asignacionJugadorEquipoDTO);
-        Equipo equipo = EquipoRepository.finById(AsignacionJugadorEquipoDTO.getEquipoId())
+        Equipo equipo = equipoRepository.findById(asignacionJugadorEquipoDTO.getEquipoId())
                 .orElseThrow(() -> new Exception("El equipo no existe"));
 
         asignacionJugadorEquipo.setEquipo(equipo);
-        asignacionJugadorEquipo =  asignacionJugadorEquipoRepository.save(asignacionJugadorEquipo);
+        asignacionJugadorEquipo = asignacionJugadorEquipoRepository.save(asignacionJugadorEquipo);
 
         return AsignacionJugadorEquipoMapper.domainToDto(asignacionJugadorEquipo);
-
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<AsignacionJugadorEquipoDTO> obtenerAsignacionJugadorEquipos() {
-       List<AsignacionJugadorEquipo> listaAsignacionJugadorEquipos = asignacionJugadorEquipoRepository.findAll();
-       List<AsignacionJugadorEquipoDTO> listaAsignacionJugadorEquiposDTO = AsignacionJugadorEquipoMapper.domainToDTOList(listaAsignacionJugadorEquipos);
-       return listaAsignacionJugadorEquiposDTO;
+        List<AsignacionJugadorEquipo> listaAsignacionJugadorEquipos = asignacionJugadorEquipoRepository.findAll();
+        return AsignacionJugadorEquipoMapper.domainToDTOList(listaAsignacionJugadorEquipos);
     }
 
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void eliminarAsignacionJugadorEquipo(Integer id) throws Exception {
-        if(id == null || id.equals(0)) {
-            throw new Exception("El id del asignacion no puede ser null o cero");
+        if (id == null || id.equals(0)) {
+            throw new Exception("El ID de la asignación no puede ser nulo o cero");
         }
 
-        Boolean existe = asignacionJugadorEquipoRepository.existsById(id);
-        if(existeAsignacionJugadorEquipo == false) {
-            throw new Exception("No existe la asigancion con el id" + id + "por lo tanto no se puede eliminar");
+        if (!asignacionJugadorEquipoRepository.existsById(id)) {
+            throw new Exception("No existe la asignación con el ID " + id + ", por lo tanto no se puede eliminar");
         }
 
-        Boolean existeJugador = jugadorRepository.existsByAsignacionJugadorEquipoId(id);
-        if(existeJugador == true) {
-            throw new Exception("La asignacion con el id" + id + "tiene jugadores asociados por lo tanto no se puede eliminar");
+        if (jugadorRepository.existsByAsignacionJugadorEquipoId(id)) {
+            throw new Exception("La asignación con el ID " + id + " tiene jugadores asociados, por lo tanto no se puede eliminar");
         }
 
         asignacionJugadorEquipoRepository.deleteById(id);
-
     }
-
-
 }
