@@ -8,7 +8,7 @@ import com.ligabtp.ligabetplay.repository.service.TablaDePosicionService;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class TablaDePosicionSerivelmpl implements TablaDePosicionService {
@@ -62,7 +62,7 @@ public class TablaDePosicionSerivelmpl implements TablaDePosicionService {
             throw new Exception("La jornada id nula");
         }
 
-        TablaDePosicion tablaDePosicion = TablaDePosicionMapper.dtoToDomain(tablaDePosicionesDTO);
+        TablaDePosicion tablaDePosicion = TablaDePosicionMapper.dtoToDomain(tablaDePosicionDTO);
         tablaDePosicion = tablaDePosicionRepository.save(tablaDePosicion);
         return TablaDePosicionMapper.domainToDto(tablaDePosicion);
     }

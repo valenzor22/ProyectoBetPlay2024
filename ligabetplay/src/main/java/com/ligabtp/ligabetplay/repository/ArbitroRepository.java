@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface ArbitroRepository extends JpaRepository<Arbitro, Integer> {
+
     Optional<Arbitro> findByNombre(String nombre);
 }
 
