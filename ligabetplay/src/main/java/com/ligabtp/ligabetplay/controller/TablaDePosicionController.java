@@ -1,10 +1,7 @@
 package com.ligabtp.ligabetplay.controller;
 
 
-import com.ligabtp.ligabetplay.domain.TablaDePosicion;
 import com.ligabtp.ligabetplay.dto.TablaDePosicionDTO;
-import com.ligabtp.ligabetplay.mapper.TablaDePosicionMapper;
-import com.ligabtp.ligabetplay.repository.TablaDePosicionRepository;
 import com.ligabtp.ligabetplay.repository.service.TablaDePosicionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,24 +16,14 @@ import java.util.List;
 public class TablaDePosicionController {
 
     //inyeccion independencia
-    private TablaDePosicionRepository tablaDePosicionRepository;
-    private TablaDePosicionService tablaDePosicionService;
+    private final TablaDePosicionService tablaDePosicionService;
 
 
-    public TablaDePosicionController(TablaDePosicionRepository tablaDePosicionRepository, TablaDePosicionService tablaDePosicionService) {
-        this.tablaDePosicionRepository = tablaDePosicionRepository;
+    public TablaDePosicionController(TablaDePosicionService tablaDePosicionService) {
         this.tablaDePosicionService = tablaDePosicionService;
     }
 
-
-    @GetMapping(value = "/obtenerTablaDePosicion")
-    public List<TablaDePosicion> obtenerTablaDePosicion (){
-        List<TablaDePosicion> listaTablaDePosicion = tablaDePosicionRepository.findAll();
-        return listaTablaDePosicion;
-
-    }
-
-    @PostMapping(value = "guardarNuevaTablaDePosicion")
+    @PostMapping(value = "/guardarTablaDePosicion")
     public ResponseEntity<TablaDePosicionDTO> guardarNuevaTablaDePosicion(@RequestBody TablaDePosicionDTO tablaDePosicionDTO) throws Exception {
         TablaDePosicionDTO tablaDePosicionResponse = tablaDePosicionService.guardarNuevaTablaDePosicion(tablaDePosicionDTO);
         return new ResponseEntity<>(tablaDePosicionResponse, HttpStatus.CREATED);
@@ -44,9 +31,9 @@ public class TablaDePosicionController {
     }
 
     @GetMapping(value = "/obtenerTablaDePosicion")
-    public List<TablaDePosicionDTO> obtenerTablaDePosicionList(){
-        List<TablaDePosicion> listaTablaDePosiciones = tablaDePosicionRepository.findAll();
-        return TablaDePosicionMapper.domainToDTOList(listaTablaDePosiciones);
+    public List<TablaDePosicionDTO> obtenerTablaDePosicion (){
+        return tablaDePosicionService.obtenerTablaDePosiciones();
+
     }
 
     @GetMapping(value = "/buscarTablaDePosicionPorId/{id}")
@@ -59,6 +46,11 @@ public class TablaDePosicionController {
     public ResponseEntity<TablaDePosicionDTO> modificarNuevaTablaDePosicion(@RequestBody TablaDePosicionDTO tablaDePosicionDTO) throws Exception {
         TablaDePosicionDTO tablaDePosicionResponse = tablaDePosicionService.guardarNuevaTablaDePosicion(tablaDePosicionDTO);
         return new ResponseEntity<>(tablaDePosicionResponse, HttpStatus.CREATED);
+    }
 
+    @DeleteMapping(value = "/eliminarTablaDePosicion/{id}")
+    public ResponseEntity<TablaDePosicionDTO> eliminarTablaDePosicion(@PathVariable ("id") Integer idTablaDePosicion) throws Exception {
+        tablaDePosicionService.eliminarTablaDePosicion(idTablaDePosicion);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
