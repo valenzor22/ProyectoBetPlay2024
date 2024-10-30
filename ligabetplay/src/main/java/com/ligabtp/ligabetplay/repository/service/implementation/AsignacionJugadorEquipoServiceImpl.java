@@ -114,12 +114,12 @@ public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEqui
             throw new Exception("El ID de la asignación no puede ser nulo o cero");
         }
 
-        if (!asignacionJugadorEquipoRepository.existsById(id)) {
+        if (asignacionJugadorEquipoRepository.existsById(id)) {
             throw new Exception("No existe la asignación con el ID " + id + ", por lo tanto no se puede eliminar");
         }
 
         if (jugadorRepository.existsByAsignacionJugadorEquipoId(id)) {
-            throw new Exception("La asignación con el ID " + id + " tiene jugadores asociados, por lo tanto no se puede eliminar");
+                throw new Exception("La asignación con el ID " + id + " tiene jugadores asociados, por lo tanto no se puede eliminar");
         }
 
         asignacionJugadorEquipoRepository.deleteById(id);

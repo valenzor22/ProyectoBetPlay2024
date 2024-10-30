@@ -100,4 +100,13 @@ public class JornadaServicelmpl implements JornadaService {
 
     }
 
+    @Override
+    public void eliminarJornada(Integer id) throws Exception {
+        if (id == null || id.equals(0)) {
+            throw new Exception("El id del jornada no puede ser negativo");
+        }
+    }
+
+
+
 }

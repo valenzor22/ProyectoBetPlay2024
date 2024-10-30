@@ -4,19 +4,23 @@ import com.ligabtp.ligabetplay.domain.Arbitro;
 import com.ligabtp.ligabetplay.dto.ArbitroDTO;
 import com.ligabtp.ligabetplay.mapper.ArbitroMapper;
 import com.ligabtp.ligabetplay.repository.ArbitroRepository;
+import com.ligabtp.ligabetplay.repository.PartidoyArbitroRepository;
 import com.ligabtp.ligabetplay.repository.service.ArbitroService;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+
 import java.util.List;
+
 
 public class ArbitroServicelmpl implements ArbitroService {
 
     private final ArbitroRepository arbitroRepository;
+    private final PartidoyArbitroRepository partidoyArbitroRepository;
 
-    public ArbitroServicelmpl(ArbitroRepository arbitroRepository) {
+    public ArbitroServicelmpl(ArbitroRepository arbitroRepository, PartidoyArbitroRepository arbitroService) {
         this.arbitroRepository = arbitroRepository;
+        this.partidoyArbitroRepository = partidoyArbitroRepository;
     }
 
     @Override
@@ -92,15 +96,36 @@ public class ArbitroServicelmpl implements ArbitroService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ArbitroDTO buscarArbitroPorNombre(String nombre) throws Exception {
-      if(nombre == null || nombre.equals("")) {
-          throw new Exception("El nombre del arbitro no puede ser nulo o vacio");
-      }
-      Arbitro arbitro = arbitroRepository.findByNombre(nombre)
-              .orElseThrow(() -> new Exception("El nombre del jugador no existe" + nombre));
+        if (nombre == null || nombre.equals("")) {
+            throw new Exception("El nombre del arbitro no puede ser nulo o vacío");
+        }
 
-      return ArbitroMapper.domainToDTO(arbitro);
+        Arbitro arbitro = arbitroRepository.findByNombre(nombre)
+                .orElseThrow(() -> new Exception("No se encuentra el arbitro con el nombre " + nombre));
+
+        return ArbitroMapper.domainToDTO(arbitro);
     }
+
+    @Override
+    public void eliminarArbitro(Integer id) throws Exception {
+        if(id == null || id.equals(0)) {
+            throw new Exception("El id del arbitro no puede ser nulo o cero");
+        }
+
+        Boolean existeArbotro = arbitroRepository.existsById(id);
+        if (existeArbotro == false) {
+            throw new Exception("El arbitro no existe" + id + "por lo tanto no se puede eliminar");
+        }
+
+        Boolean existeAlgunPartidoyArbitroAlArbitro = partidoyArbitroRepository.existsByArbitroId(id);
+        if (existeAlgunPartidoyArbitroAlArbitro == true) {
+            throw new Exception("El arbitro con el id" + id + "tiene partido y arbitro por lo tanto no se puede eliminar");
+        }
+    }
+
+
 
 
 }

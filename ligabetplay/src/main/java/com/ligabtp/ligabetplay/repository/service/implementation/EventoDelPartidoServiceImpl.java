@@ -104,18 +104,18 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void eliminarEventoDelPartido(Integer id) throws Exception {
+        // Primero debemos validar que el id no sea nulo y que tampoco sea cero
         if (id == null || id.equals(0)) {
-            throw new Exception("El ID del EventoDelPartido no puede ser nulo o cero");
+            throw new Exception("El id del evento del partido no puede ser nulo o cero");
         }
 
-        if (!eventoDelPartidoRepository.existsById(id)) {
-            throw new Exception("No existe el evento Del Partido con el ID " + id + ", por lo tanto no se puede eliminar");
+        // Segundo debemos validar que exista la ciudad con el id que nos están pasando
+        Boolean existeEventoDelPartido = eventoDelPartidoRepository.existsById(id);
+        if (existeEventoDelPartido == false) {
+            throw new Exception("No existe el Evento del Partido con el id " + id + " por lo tanto no se puede eliminar");
         }
 
-        if (tipoEventoRepository.existsByEventoDelPartidoId(id)) {
-            throw new Exception("El tipo de evento con el ID " + id + " tiene jugadores asociados, por lo tanto no se puede eliminar");
-        }
-
+        // Si la ciudad no tiene aeropuertos asociados, entonces la eliminamos
         eventoDelPartidoRepository.deleteById(id);
     }
 }

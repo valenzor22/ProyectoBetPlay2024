@@ -16,5 +16,7 @@ public interface EquipoService {
 
     EquipoDTO buscarEquipoPorNombre(String nombre) throws Exception;
 
+    void eliminarEquipo(Integer id) throws Exception;
+
 
 }

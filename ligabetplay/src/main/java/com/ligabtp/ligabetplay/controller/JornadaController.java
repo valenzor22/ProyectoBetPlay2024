@@ -55,4 +55,10 @@ public class JornadaController {
         return new ResponseEntity<>(jornadaResponse, HttpStatus.OK);
     }
 
+    @DeleteMapping(value = "/eliminarJornada/{id}")
+    public ResponseEntity<Void> eliminarJornada (@PathVariable("id") Integer idJornada) throws Exception{
+        jornadaService.eliminarJornada(idJornada);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

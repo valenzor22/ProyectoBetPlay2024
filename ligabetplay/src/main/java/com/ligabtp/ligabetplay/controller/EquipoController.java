@@ -54,5 +54,12 @@ public class EquipoController {
         return new ResponseEntity<>(equipoDTO, HttpStatus.OK);
     }
 
+    @DeleteMapping("/eliminarEquipo/{id}")
+    public ResponseEntity<Void> eliminarEquipo(@PathVariable ("id") Integer idEquipo) throws Exception {
+        equipoService.eliminarEquipo(idEquipo);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 }
 

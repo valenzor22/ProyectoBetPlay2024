@@ -17,5 +17,7 @@ public interface ArbitroService {
 
     ArbitroDTO buscarArbitroPorNombre(String nombre) throws Exception;
 
+    void eliminarArbitro(Integer id) throws Exception;
+
 
 }

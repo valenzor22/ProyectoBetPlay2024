@@ -55,4 +55,10 @@ public class ArbitroController {
         return new ResponseEntity<>(arbitroResponse, HttpStatus.OK);
     }
 
+    @DeleteMapping (value = "/eliminarArbitro/{id}")
+    public ResponseEntity<Void> eliminarArbitro(@PathVariable ("id") Integer idArbitro) throws Exception{
+        arbitroService.eliminarArbitro(idArbitro);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

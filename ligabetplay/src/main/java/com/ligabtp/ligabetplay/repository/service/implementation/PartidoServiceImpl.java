@@ -168,6 +168,7 @@ public class PartidoServiceImpl implements PartidoService {
             throw new Exception("La jornada debe ser no nula");
         }
 
+
         //Validacion 3 llegue al fecha fin
         if(partidoDTO.getFecha() == null || partidoDTO.getFecha().equals("")){
             throw new Exception("La fecha debe ser no nula");

@@ -11,4 +11,6 @@ public interface PartidoyArbitroRepository extends JpaRepository<PartidoyArbitro
 
     Boolean existsByPartidoyArbitroId(Integer partidoyArbitroId);
 
+
+
 }

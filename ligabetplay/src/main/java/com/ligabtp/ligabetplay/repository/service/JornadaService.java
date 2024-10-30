@@ -16,5 +16,7 @@ public interface JornadaService {
 
     JornadaDTO buscarJornadaPorNombre(String nombre) throws Exception;
 
+    void eliminarJornada(Integer id) throws Exception;
+
 
 }

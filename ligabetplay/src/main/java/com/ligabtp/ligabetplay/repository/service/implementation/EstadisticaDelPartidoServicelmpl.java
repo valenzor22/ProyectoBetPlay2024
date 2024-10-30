@@ -5,12 +5,13 @@ import com.ligabtp.ligabetplay.dto.EstadisticaDelPartidoDTO;
 import com.ligabtp.ligabetplay.mapper.EstadisticaDelPartidoMapper;
 import com.ligabtp.ligabetplay.repository.EstadisticaDelPartidoRepository;
 import com.ligabtp.ligabetplay.repository.service.EstadisticaDelPartidoService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class EstadisticaDelPartidoServicelmpl implements EstadisticaDelPartidoService {
 
     private final EstadisticaDelPartidoRepository estadisticaDelPartidoRepository;

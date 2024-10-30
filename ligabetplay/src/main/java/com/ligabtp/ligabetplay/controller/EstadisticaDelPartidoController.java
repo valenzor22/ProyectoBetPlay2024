@@ -4,6 +4,7 @@ import com.ligabtp.ligabetplay.dto.EstadisticaDelPartidoDTO;
 import com.ligabtp.ligabetplay.repository.service.EstadisticaDelPartidoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

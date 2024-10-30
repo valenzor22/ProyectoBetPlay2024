@@ -5,12 +5,14 @@ import com.ligabtp.ligabetplay.dto.TablaDePosicionDTO;
 import com.ligabtp.ligabetplay.mapper.TablaDePosicionMapper;
 import com.ligabtp.ligabetplay.repository.TablaDePosicionRepository;
 import com.ligabtp.ligabetplay.repository.service.TablaDePosicionService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
 
+@Service
 public class TablaDePosicionSerivelmpl implements TablaDePosicionService {
 
     private final TablaDePosicionRepository tablaDePosicionRepository;
