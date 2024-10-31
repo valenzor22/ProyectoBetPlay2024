@@ -2,8 +2,7 @@ package com.ligabtp.ligabetplay.controller;
 
 
 import com.ligabtp.ligabetplay.dto.JugadorDTO;
-import com.ligabtp.ligabetplay.repository.service.JugadorService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import com.ligabtp.ligabetplay.service.JugadorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

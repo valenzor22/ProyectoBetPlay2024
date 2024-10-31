@@ -1,4 +1,4 @@
-package com.ligabtp.ligabetplay.repository.service;
+package com.ligabtp.ligabetplay.service;
 
 import com.ligabtp.ligabetplay.dto.AsignacionJugadorEquipoDTO;
 

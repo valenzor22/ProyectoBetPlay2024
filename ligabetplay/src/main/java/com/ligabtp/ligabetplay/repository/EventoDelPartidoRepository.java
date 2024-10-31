@@ -8,5 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface EventoDelPartidoRepository extends JpaRepository<EventoDelPartido, Integer> {
 
     // Method to check if an EventoDelPartido exists by id_partido
-    boolean existsByIdPartido(Integer idPartido);
+    boolean existsByTipoEventoId(Integer id);
+
+    boolean existsByPartidoId(Integer id);
 }

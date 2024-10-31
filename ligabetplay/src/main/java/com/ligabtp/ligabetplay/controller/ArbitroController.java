@@ -1,15 +1,12 @@
 package com.ligabtp.ligabetplay.controller;
 
-import com.ligabtp.ligabetplay.domain.Arbitro;
 import com.ligabtp.ligabetplay.dto.ArbitroDTO;
-import com.ligabtp.ligabetplay.mapper.ArbitroMapper;
 import com.ligabtp.ligabetplay.repository.ArbitroRepository;
-import com.ligabtp.ligabetplay.repository.service.ArbitroService;
+import com.ligabtp.ligabetplay.service.ArbitroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -46,7 +43,7 @@ public class ArbitroController {
     @PutMapping(value = "/modificarArbitro")
     public ResponseEntity<ArbitroDTO> modificarArbitro(@RequestBody ArbitroDTO arbitroDTO) throws Exception{
         ArbitroDTO arbitroResponse = arbitroService.modificarArbitro(arbitroDTO);
-        return new ResponseEntity<>(arbitroResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(arbitroResponse, HttpStatus.OK);
     }
 
     @GetMapping (value = "/buscarArbitroPorNombre/{nombre}")

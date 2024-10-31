@@ -11,6 +11,5 @@ import java.util.Optional;
 public interface ArbitroRepository extends JpaRepository<Arbitro, Integer> {
 
     Optional<Arbitro> findByNombre(String nombre);
-
 }
 

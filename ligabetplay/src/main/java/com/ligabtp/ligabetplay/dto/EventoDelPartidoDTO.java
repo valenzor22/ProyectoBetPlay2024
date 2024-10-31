@@ -14,4 +14,5 @@ public class EventoDelPartidoDTO {
     private Integer minuto;
     private Integer partidoId;
     private Integer jugadorId;
+    private Integer tipoEventoId;
 }

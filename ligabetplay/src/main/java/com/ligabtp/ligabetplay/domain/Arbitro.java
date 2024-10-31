@@ -21,9 +21,9 @@ public class Arbitro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
 
-    @Column(length = 100, name = "nombre")
+    @Column(length = 100, name = "nombre", nullable = false)
     private String nombre;
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     private String apellido;
     @Column(length = 100)
     private String nacionalidad;

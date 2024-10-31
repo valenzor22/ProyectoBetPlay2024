@@ -2,7 +2,7 @@ package com.ligabtp.ligabetplay.controller;
 
 
 import com.ligabtp.ligabetplay.dto.TablaDePosicionDTO;
-import com.ligabtp.ligabetplay.repository.service.TablaDePosicionService;
+import com.ligabtp.ligabetplay.service.TablaDePosicionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +45,7 @@ public class TablaDePosicionController {
     @PutMapping(value = "/modificarNuevaTablaDePosicion")
     public ResponseEntity<TablaDePosicionDTO> modificarNuevaTablaDePosicion(@RequestBody TablaDePosicionDTO tablaDePosicionDTO) throws Exception {
         TablaDePosicionDTO tablaDePosicionResponse = tablaDePosicionService.guardarNuevaTablaDePosicion(tablaDePosicionDTO);
-        return new ResponseEntity<>(tablaDePosicionResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(tablaDePosicionResponse, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/eliminarTablaDePosicion/{id}")

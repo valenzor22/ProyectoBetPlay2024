@@ -11,5 +11,6 @@ import java.util.Optional;
 @Repository
 public interface JornadaRepository extends JpaRepository<Jornada, Integer> {
 
-    Optional<Jornada> findByNombre(String nombre);
+    Optional<Jornada> findByNumero(Integer numero);
+
 }

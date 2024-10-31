@@ -19,7 +19,7 @@ public class Equipo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
 
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     private  String nombre;
     @Column(length = 100)
     private  String ciudad;

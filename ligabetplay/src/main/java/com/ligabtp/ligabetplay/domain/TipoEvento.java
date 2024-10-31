@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tipoeventos")
+@Table(name = "tipo_evento")
 public class TipoEvento {
 
     @Id
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id_tipo_evento")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
 
-    @Column(length = 100)
+    @Column(length = 100, name = "nombre_evento", nullable = false)
     private  String nombre;
 
 }

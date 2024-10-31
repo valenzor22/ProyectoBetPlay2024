@@ -1,13 +1,12 @@
-package com.ligabtp.ligabetplay.repository.service;
+package com.ligabtp.ligabetplay.service;
 
 
 import com.ligabtp.ligabetplay.dto.ArbitroDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface ArbitroService {
-
-    ArbitroDTO buscarArbitroPorId(Integer id) throws Exception;
 
     ArbitroDTO guardarNuevoArbitro(ArbitroDTO arbitroDTO) throws Exception;
 
@@ -20,4 +19,5 @@ public interface ArbitroService {
     void eliminarArbitro(Integer id) throws Exception;
 
 
+    ArbitroDTO buscarArbitroPorId(Integer id) throws Exception;
 }

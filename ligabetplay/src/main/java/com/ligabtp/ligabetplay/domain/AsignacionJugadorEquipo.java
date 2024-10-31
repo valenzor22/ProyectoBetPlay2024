@@ -20,19 +20,20 @@ public class AsignacionJugadorEquipo {
     @Column(nullable = false, name = "id_asignacion")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(length = 100, name = "fecha_inicio")
+
+    @Column(length = 100, name = "fecha_inicio", nullable = false)
     private Date fechaInicio;
     @Column(length = 100, name = "fecha_fin")
     private Date fechaFin;
 
 
-        @ManyToOne
-        @JoinColumn(name = "id_jugador", referencedColumnName = "id_jugador", nullable = false)
-        private Jugador jugador;
+    @ManyToOne
+    @JoinColumn(name = "id_jugador", referencedColumnName = "id_jugador", nullable = false)
+    private Jugador jugador;
 
-        @ManyToOne
-        @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo", nullable = false)
-        private Equipo equipo;
+    @ManyToOne
+    @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo", nullable = false)
+    private Equipo equipo;
 
 
 }

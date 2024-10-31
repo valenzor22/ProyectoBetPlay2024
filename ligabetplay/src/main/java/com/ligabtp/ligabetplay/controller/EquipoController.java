@@ -3,8 +3,7 @@ package com.ligabtp.ligabetplay.controller;
 
 
 import com.ligabtp.ligabetplay.dto.EquipoDTO;
-import com.ligabtp.ligabetplay.repository.service.EquipoService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import com.ligabtp.ligabetplay.service.EquipoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +26,7 @@ public class EquipoController {
 
     @GetMapping(value = "/obtenerEquipo")
     public List<EquipoDTO> obtenerequipo (){
-        return equipoService.obtenerEqupos();
+        return equipoService.obtenerEquipos();
     }
 
     @PostMapping(value = "/crearNuevoEquipo")
@@ -45,7 +44,7 @@ public class EquipoController {
     @PutMapping (value = "/modificarEquipo")
     public ResponseEntity<EquipoDTO> modificarEquipo(@RequestBody EquipoDTO equipoDTO) throws Exception{
         EquipoDTO equipoResponseDTO = equipoService.modificarEquipo(equipoDTO);
-        return new ResponseEntity<>(equipoResponseDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(equipoResponseDTO, HttpStatus.OK);
     }
 
     @GetMapping(value = "/buscarEquipoPorNombre/{nombre}")

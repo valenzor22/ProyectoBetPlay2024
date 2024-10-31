@@ -2,8 +2,7 @@ package com.ligabtp.ligabetplay.controller;
 
 
 import com.ligabtp.ligabetplay.dto.EventoDelPartidoDTO;
-import com.ligabtp.ligabetplay.repository.service.EventoDelPartidoService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import com.ligabtp.ligabetplay.service.EventoDelPartidoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +43,7 @@ public class EventoDelPartidoController {
     @PutMapping(value = "/modificarEventoDelPartido")
     public ResponseEntity<EventoDelPartidoDTO> modificarEventoDelPartido(@RequestBody EventoDelPartidoDTO eventoDelPartidoDTO) throws Exception {
         EventoDelPartidoDTO eventoDelPartidoResponse = eventoDelPartidoService.modificarEventoDelPartido(eventoDelPartidoDTO);
-        return new ResponseEntity<>(eventoDelPartidoResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(eventoDelPartidoResponse, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/eliminarEventoDelPartido/{id}")

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "partidosyarbitros")
+@Table(name = "partidos_y_arbitros")
 public class PartidoyArbitro {
 
     @Id
@@ -19,16 +19,16 @@ public class PartidoyArbitro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 100, name = "tipo_arbitro")
+    @Column(length = 50, name = "tipo_arbitro", nullable = false)
     private String tipoArbitro;
 
 
     @ManyToOne
-    @JoinColumn(name = "id_partido", referencedColumnName = "id_partido", nullable = false)
+    @JoinColumn(name = "id_partido", referencedColumnName = "id_partido")
     private Partido partido;
 
     @ManyToOne
-    @JoinColumn(name = "id_arbitro", referencedColumnName = "id_arbitro", nullable = false)
+    @JoinColumn(name = "id_arbitro", referencedColumnName = "id_arbitro")
     private Arbitro arbitro;
 
 

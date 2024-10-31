@@ -1,4 +1,4 @@
-package com.ligabtp.ligabetplay.repository.service.implementation;
+package com.ligabtp.ligabetplay.service.implementation;
 
 import com.ligabtp.ligabetplay.domain.AsignacionJugadorEquipo;
 import com.ligabtp.ligabetplay.domain.Equipo;
@@ -7,14 +7,12 @@ import com.ligabtp.ligabetplay.mapper.AsignacionJugadorEquipoMapper;
 import com.ligabtp.ligabetplay.repository.AsignacionJugadorEquipoRepository;
 import com.ligabtp.ligabetplay.repository.EquipoRepository;
 import com.ligabtp.ligabetplay.repository.JugadorRepository;
-import com.ligabtp.ligabetplay.repository.service.AsignacionJugadorEquipoService;
+import com.ligabtp.ligabetplay.service.AsignacionJugadorEquipoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEquipoService {
@@ -36,11 +34,11 @@ public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEqui
             throw new Exception("El ID debe ser nulo");
         }
 
-        if (StringUtils.isEmpty(asignacionJugadorEquipoDTO.getFechaInicio())) {
+        if (asignacionJugadorEquipoDTO.getFechaInicio() == null) {
             throw new Exception("La fecha de inicio debe ser no nula");
         }
 
-        if (StringUtils.isEmpty(asignacionJugadorEquipoDTO.getFechaFin())) {
+        if (asignacionJugadorEquipoDTO.getFechaFin() == null) {
             throw new Exception("La fecha de fin debe ser no nula");
         }
 
@@ -78,11 +76,11 @@ public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEqui
             throw new Exception("El ID no debe ser nulo");
         }
 
-        if (StringUtils.isEmpty(asignacionJugadorEquipoDTO.getFechaInicio())) {
+        if (asignacionJugadorEquipoDTO.getFechaInicio() == null) {
             throw new Exception("La fecha de inicio debe ser no nula");
         }
 
-        if (StringUtils.isEmpty(asignacionJugadorEquipoDTO.getFechaFin())) {
+        if (asignacionJugadorEquipoDTO.getFechaFin() == null) {
             throw new Exception("La fecha de fin debe ser no nula");
         }
 
@@ -114,11 +112,13 @@ public class AsignacionJugadorEquipoServiceImpl implements AsignacionJugadorEqui
             throw new Exception("El ID de la asignación no puede ser nulo o cero");
         }
 
-        if (asignacionJugadorEquipoRepository.existsById(id)) {
+        boolean existeAlgunEquipo = equipoRepository.existsById(id);
+        if (asignacionJugadorEquipoRepository.existsByEquipoId(id)) {
             throw new Exception("No existe la asignación con el ID " + id + ", por lo tanto no se puede eliminar");
         }
 
-        if (jugadorRepository.existsByAsignacionJugadorEquipoId(id)) {
+        boolean existeAlgunJugador = jugadorRepository.existsById(id);
+        if (asignacionJugadorEquipoRepository.existsByJugadorId(id)) {
                 throw new Exception("La asignación con el ID " + id + " tiene jugadores asociados, por lo tanto no se puede eliminar");
         }
 

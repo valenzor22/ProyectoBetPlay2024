@@ -38,11 +38,11 @@ public class TablaDePosicion {
 
 
     @ManyToOne
-    @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo", nullable = false)
+    @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo")
     private Equipo equipo;
 
     @ManyToOne
-    @JoinColumn(name = "id_jornada", referencedColumnName = "id_jornada", nullable = false)
+    @JoinColumn(name = "id_jornada", referencedColumnName = "id_jornada")
     private Jornada jornada;
 
 

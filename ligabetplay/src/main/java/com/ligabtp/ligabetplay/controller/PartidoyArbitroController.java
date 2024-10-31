@@ -1,10 +1,9 @@
 package com.ligabtp.ligabetplay.controller;
 
 import com.ligabtp.ligabetplay.dto.PartidoyArbitroDTO;
-import com.ligabtp.ligabetplay.repository.service.PartidoyArbitroService;
+import com.ligabtp.ligabetplay.service.PartidoyArbitroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

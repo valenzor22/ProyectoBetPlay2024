@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface TipoEventoRepository extends JpaRepository<TipoEvento, Integer> {
-    Optional<TipoEvento> findByNombre(String nombre);
+    Optional<TipoEvento> findById(Integer Id);
 }

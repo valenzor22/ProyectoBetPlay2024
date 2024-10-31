@@ -1,4 +1,4 @@
-package com.ligabtp.ligabetplay.repository.service;
+package com.ligabtp.ligabetplay.service;
 
 import com.ligabtp.ligabetplay.dto.EquipoDTO;
 
@@ -10,7 +10,7 @@ public interface EquipoService {
 
     EquipoDTO guardarNuevaEquipo(EquipoDTO equipoDTO) throws Exception;
 
-    List<EquipoDTO> obtenerEqupos();
+    List<EquipoDTO> obtenerEquipos();
 
     EquipoDTO modificarEquipo(EquipoDTO equipoDTO) throws Exception;
 

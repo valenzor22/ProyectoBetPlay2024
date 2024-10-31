@@ -43,10 +43,10 @@ public class EstadisticaDelPartido {
 
 
     @ManyToOne
-    @JoinColumn(name = "id_partido",referencedColumnName = "id_partido", nullable = false)
+    @JoinColumn(name = "id_partido",referencedColumnName = "id_partido")
     private Partido partido;
     @ManyToOne
-    @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo", nullable = false)
+    @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo")
     private Equipo equipo;
 
 

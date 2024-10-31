@@ -8,7 +8,10 @@ import java.util.Optional;
 
 @Repository
 public interface EstadisticaDelPartidoRepository extends JpaRepository<EstadisticaDelPartido, Integer> {
-    Optional<EstadisticaDelPartido> findByNombre(String nombre);
+    Optional<EstadisticaDelPartido> findById(Integer Id);
+
+    boolean existsByEquipoId(Integer id);
+    boolean existsByPartidoId(Integer id);
 }
 
 

@@ -2,14 +2,12 @@ package com.ligabtp.ligabetplay.controller;
 
 
 import com.ligabtp.ligabetplay.dto.TipoEventoDTO;
-import com.ligabtp.ligabetplay.repository.service.TipoEventoService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import com.ligabtp.ligabetplay.service.TipoEventoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -45,7 +43,7 @@ public class TipoEventoController {
     @PutMapping(value = "/modificarTipoEvento")
     public ResponseEntity<TipoEventoDTO> modificarTipoEvento(@RequestBody TipoEventoDTO tipoEventoDTO) throws Exception {
         TipoEventoDTO tipoEventoResponse = tipoEventoService.modificarTipoEvento(tipoEventoDTO);
-        return new ResponseEntity<>(tipoEventoResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(tipoEventoResponse, HttpStatus.OK);
     }
 
    @DeleteMapping(value = "/eliminarTipoEvento/{id}")

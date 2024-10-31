@@ -11,6 +11,4 @@ import java.util.Optional;
 @Repository
 public interface EquipoRepository extends JpaRepository<Equipo, Integer> {
     Optional<Equipo> findByNombre(String nombre);
-    Boolean existsByJugadorId(Integer jugadorId); // preguntar 
-
 }

@@ -31,8 +31,8 @@ public class EventoDelPartido {
     private Jugador jugador;
 
     @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
-    private TipoEvento TipoEvento;
+    @JoinColumn(name = "id", referencedColumnName = "id_tipo_evento", nullable = false)
+    private TipoEvento tipoEvento;
 
 
 

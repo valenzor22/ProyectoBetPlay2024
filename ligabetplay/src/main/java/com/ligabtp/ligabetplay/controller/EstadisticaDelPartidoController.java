@@ -1,10 +1,9 @@
 package com.ligabtp.ligabetplay.controller;
 
 import com.ligabtp.ligabetplay.dto.EstadisticaDelPartidoDTO;
-import com.ligabtp.ligabetplay.repository.service.EstadisticaDelPartidoService;
+import com.ligabtp.ligabetplay.service.EstadisticaDelPartidoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,7 +41,7 @@ public class EstadisticaDelPartidoController {
     @PutMapping(value = "/modificarEstadisticadelPartidos")
     public ResponseEntity<EstadisticaDelPartidoDTO> modificarEstadisticaDelPartido(@RequestBody EstadisticaDelPartidoDTO estadisticaDelPartidoDTO) throws Exception {
         EstadisticaDelPartidoDTO estadisticaDelPartidoResponse = estadisticaDelPartidoService.modificarNuevaEstadisticaDelPartido(estadisticaDelPartidoDTO);
-        return new ResponseEntity<>(estadisticaDelPartidoResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(estadisticaDelPartidoResponse, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/eliminarEstadisticaDelPartido/{id}")

@@ -1,18 +1,19 @@
-package com.ligabtp.ligabetplay.repository.service.implementation;
+package com.ligabtp.ligabetplay.service.implementation;
 
+import com.ligabtp.ligabetplay.domain.Arbitro;
+import com.ligabtp.ligabetplay.domain.Partido;
 import com.ligabtp.ligabetplay.domain.PartidoyArbitro;
 import com.ligabtp.ligabetplay.dto.PartidoyArbitroDTO;
 import com.ligabtp.ligabetplay.mapper.PartidoyArbitroMapper;
 import com.ligabtp.ligabetplay.repository.ArbitroRepository;
 import com.ligabtp.ligabetplay.repository.PartidoRepository;
 import com.ligabtp.ligabetplay.repository.PartidoyArbitroRepository;
-import com.ligabtp.ligabetplay.repository.service.ArbitroService;
-import com.ligabtp.ligabetplay.repository.service.PartidoyArbitroService;
+import com.ligabtp.ligabetplay.service.PartidoyArbitroService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+
 import java.util.List;
 @Service
 public class PartidoyArbitroServicelmpl implements PartidoyArbitroService {
@@ -47,7 +48,25 @@ public class PartidoyArbitroServicelmpl implements PartidoyArbitroService {
             throw new Exception("El tipo de arbitro no puede ser null");
         }
 
+        // Buscar la referencia en Partido y Arbitro para poder guardar correctamente en la tabla y hacer el
+        // partidoYArbitro.setArbitro(valor)
+        // partidoYArbitro.setPartido(valor)
+        // Buscar primero si existen
+
+        Partido partido = partidoRepository.getReferenceById(partidoyArbitroDTO.getPartidoId());
+        if (partido == null) {
+            throw new Exception("El partido no existe");
+        }
+
+        Arbitro arbitro = arbitroRepository.getReferenceById(partidoyArbitroDTO.getArbitroId());
+        if (arbitro == null) {
+            throw new Exception("El arbitro no existe");
+        }
+
         PartidoyArbitro partidoyArbitro = PartidoyArbitroMapper.dtoToDomain(partidoyArbitroDTO);
+        partidoyArbitro.setArbitro(arbitro);
+        partidoyArbitro.setPartido(partido);
+
         partidoyArbitro = partidoyArbitroRepository.save(partidoyArbitro);
         return PartidoyArbitroMapper.domainToDTO(partidoyArbitro);
     }
@@ -94,8 +113,7 @@ public class PartidoyArbitroServicelmpl implements PartidoyArbitroService {
     @Transactional(readOnly = true)
     public List<PartidoyArbitroDTO> obtenerPartidoyArbitros() {
         List<PartidoyArbitro> listaPartidoyArbitros = partidoyArbitroRepository.findAll();
-        List<PartidoyArbitroDTO> partidoyArbitrosDTO = PartidoyArbitroMapper.domainToDTOList(listaPartidoyArbitros);
-        return partidoyArbitrosDTO;
+        return PartidoyArbitroMapper.domainToDTOList(listaPartidoyArbitros);
     }
 
     @Override
@@ -106,16 +124,9 @@ public class PartidoyArbitroServicelmpl implements PartidoyArbitroService {
         }
 
         // Validar la existencia del PartidoyArbitro
-        if (!partidoyArbitroRepository.existsById(id)) {
+        boolean existePartidoyArbitro = partidoyArbitroRepository.existsById(id);
+        if (!existePartidoyArbitro) {
             throw new Exception("No existe el PartidoyArbitro con el id " + id);
-        }
-
-        // Validar que no tenga partidos o árbitros asociados
-        if (partidoyArbitroRepository.existsIdPartidos(id)) {
-            throw new Exception("El PartidoyArbitro con id " + id + " tiene partidos asociados, no se puede eliminar");
-        }
-        if (partidoyArbitroRepository.existsIdArbitro(id)) {
-            throw new Exception("El PartidoyArbitro con id " + id + " tiene árbitros asociados, no se puede eliminar");
         }
 
         partidoyArbitroRepository.deleteById(id);

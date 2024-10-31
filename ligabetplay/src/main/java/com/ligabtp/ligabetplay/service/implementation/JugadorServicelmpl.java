@@ -1,4 +1,4 @@
-package com.ligabtp.ligabetplay.repository.service.implementation;
+package com.ligabtp.ligabetplay.service.implementation;
 
 
 import com.ligabtp.ligabetplay.domain.Jugador;
@@ -6,12 +6,13 @@ import com.ligabtp.ligabetplay.dto.JugadorDTO;
 import com.ligabtp.ligabetplay.mapper.JugadorMapper;
 import com.ligabtp.ligabetplay.repository.AsignacionJugadorEquipoRepository;
 import com.ligabtp.ligabetplay.repository.JugadorRepository;
-import com.ligabtp.ligabetplay.repository.service.JugadorService;
+import com.ligabtp.ligabetplay.service.JugadorService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -50,22 +51,22 @@ public class JugadorServicelmpl implements JugadorService {
             throw new Exception("No debería tener ID puesto que es un Nuevo Jugador");
         }
 
-        if (jugadorDTO.getNombre() == null || jugadorDTO.getNombre().equals("")) {
+        if (jugadorDTO.getNombre() == null || jugadorDTO.getNombre().isEmpty()) {
             throw new Exception("El nombre del jugador no puede ser nulo");
         }
-        if (jugadorDTO.getPiernaHabilJugador() == null || jugadorDTO.getPiernaHabilJugador().equals("")) {
+        if (jugadorDTO.getPiernaHabilJugador() == null || jugadorDTO.getPiernaHabilJugador().isEmpty()) {
             throw new Exception("La pierna habil del jugador no puede ser nulo");
         }
-        if (jugadorDTO.getPosicion() == null || jugadorDTO.getPosicion().equals("")) {
+        if (jugadorDTO.getPosicion() == null || jugadorDTO.getPosicion().isEmpty()) {
             throw new Exception("La posicion del jugador no puede ser nulo");
         }
-        if (jugadorDTO.getNacionalidad() == null || jugadorDTO.getNacionalidad().equals("")) {
+        if (jugadorDTO.getNacionalidad() == null || jugadorDTO.getNacionalidad().isEmpty()) {
             throw new Exception("La nacionalidad del jugador no puede ser nulo");
         }
-        if (jugadorDTO.getNumeroCamisa() == null || jugadorDTO.getNumeroCamisa().equals("")) {
+        if (jugadorDTO.getNumeroCamisa() == null || jugadorDTO.getNumeroCamisa().equals(0)) {
             throw new Exception("El numero de camiseta del jugador no puede ser nulo");
         }
-        if (jugadorDTO.getFechaNacimiento() == null || jugadorDTO.getFechaNacimiento().equals("")) {
+        if (jugadorDTO.getFechaNacimiento() == null || jugadorDTO.getFechaNacimiento().after(new Date())) {
             throw new Exception("La fecha de nacimiento del jugador no puede ser nulo");
         }
 
@@ -79,8 +80,7 @@ public class JugadorServicelmpl implements JugadorService {
     @Transactional(readOnly = true)
     public List<JugadorDTO> obtenerJugadores() {
         List<Jugador> listaJugadores = jugadorRepository.findAll();
-        List<JugadorDTO> jugadoresDTO = JugadorMapper.domainToDTOList(listaJugadores);
-        return jugadoresDTO;
+        return JugadorMapper.domainToDTOList(listaJugadores);
     }
 
     @Override
@@ -93,22 +93,22 @@ public class JugadorServicelmpl implements JugadorService {
         if (jugadorDTO.getId() == null) {
             throw new Exception("No se puede actualizar un jugador si no tenemos su ID");
         }
-        if (jugadorDTO.getNombre() == null || jugadorDTO.getNombre().equals("")) {
+        if (jugadorDTO.getNombre() == null || jugadorDTO.getNombre().isEmpty()) {
             throw new Exception("El nombre del jugador no puede ser nulo");
         }
-        if (jugadorDTO.getPiernaHabilJugador() == null || jugadorDTO.getPiernaHabilJugador().equals("")) {
+        if (jugadorDTO.getPiernaHabilJugador() == null || jugadorDTO.getPiernaHabilJugador().isEmpty()) {
             throw new Exception("El nombre del jugador no puede ser nulo");
         }
-        if (jugadorDTO.getPosicion() == null || jugadorDTO.getPosicion().equals("")) {
+        if (jugadorDTO.getPosicion() == null || jugadorDTO.getPosicion().isEmpty()) {
             throw new Exception("El nombre del jugador no puede ser nulo");
         }
-        if (jugadorDTO.getNacionalidad() == null || jugadorDTO.getNacionalidad().equals("")) {
+        if (jugadorDTO.getNacionalidad() == null || jugadorDTO.getNacionalidad().isEmpty()) {
             throw new Exception("El nombre del jugador no puede ser nulo");
         }
-        if (jugadorDTO.getNumeroCamisa() == null || jugadorDTO.getNumeroCamisa().equals("")) {
+        if (jugadorDTO.getNumeroCamisa() == null || jugadorDTO.getNumeroCamisa().equals(0)) {
             throw new Exception("El nombre del jugador no puede ser nulo");
         }
-        if (jugadorDTO.getFechaNacimiento() == null || jugadorDTO.getFechaNacimiento().equals("")) {
+        if (jugadorDTO.getFechaNacimiento() == null || jugadorDTO.getFechaNacimiento().after(new Date())) {
             throw new Exception("El nombre del jugador no puede ser nulo");
         }
 
@@ -120,7 +120,7 @@ public class JugadorServicelmpl implements JugadorService {
     @Override
     @Transactional(readOnly = true)
     public JugadorDTO buscarJugadorPorNombre(String nombre) throws Exception {
-       if(nombre == null || nombre.equals("")) {
+       if(nombre == null || nombre.isEmpty()) {
            throw new Exception("El nombre del jugador no puede ser nulo o estar vacio");
        }
 
@@ -138,13 +138,13 @@ public class JugadorServicelmpl implements JugadorService {
             throw new Exception("El id del jugador no puede ser nulo o cero");
         }
 
-        Boolean existeJugador   = jugadorRepository.existsById(id);
-        if(existeJugador == false) {
+        boolean existeJugador = jugadorRepository.existsById(id);
+        if(!existeJugador) {
             throw new Exception("El jugador no existe"+ id + "por lo tanto no se puede eliminar");
         }
 
-        Boolean existeAlgunaAsignacionJugadorEquipoAlJugador = asignacionJugadorEquipoRepository.existsByJugadorId(id);
-        if (existeAlgunaAsignacionJugadorEquipoAlJugador == true){
+        boolean existeAlgunaAsignacionJugadorEquipoAlJugador = asignacionJugadorEquipoRepository.existsByJugadorId(id);
+        if (!existeAlgunaAsignacionJugadorEquipoAlJugador){
             throw new Exception("El jugador con el id"+ id + "tiene asignaciones jugadores equipo por lo tanto no se puede eliminar");
         }
 

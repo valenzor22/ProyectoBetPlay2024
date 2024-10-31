@@ -1,23 +1,28 @@
-package com.ligabtp.ligabetplay.repository.service.implementation;
+package com.ligabtp.ligabetplay.service.implementation;
 
 import com.ligabtp.ligabetplay.domain.EstadisticaDelPartido;
 import com.ligabtp.ligabetplay.dto.EstadisticaDelPartidoDTO;
 import com.ligabtp.ligabetplay.mapper.EstadisticaDelPartidoMapper;
+import com.ligabtp.ligabetplay.repository.EquipoRepository;
 import com.ligabtp.ligabetplay.repository.EstadisticaDelPartidoRepository;
-import com.ligabtp.ligabetplay.repository.service.EstadisticaDelPartidoService;
+import com.ligabtp.ligabetplay.repository.PartidoRepository;
+import com.ligabtp.ligabetplay.service.EstadisticaDelPartidoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 @Service
 public class EstadisticaDelPartidoServicelmpl implements EstadisticaDelPartidoService {
 
     private final EstadisticaDelPartidoRepository estadisticaDelPartidoRepository;
+    private final EquipoRepository equipoRepository;
+    private final PartidoRepository partidoRepository;
 
-    public EstadisticaDelPartidoServicelmpl(EstadisticaDelPartidoRepository estadisticaDelPartidoRepository) {
+    public EstadisticaDelPartidoServicelmpl(EstadisticaDelPartidoRepository estadisticaDelPartidoRepository, EquipoRepository equipoRepository, PartidoRepository partidoRepository) {
         this.estadisticaDelPartidoRepository = estadisticaDelPartidoRepository;
+        this.equipoRepository = equipoRepository;
+        this.partidoRepository = partidoRepository;
     }
 
     @Override
@@ -57,7 +62,6 @@ public class EstadisticaDelPartidoServicelmpl implements EstadisticaDelPartidoSe
         if (estadisticaDelPartidoDTO.getRemateArcoResultado() == null) {
             throw new Exception("Los remate arco resultado no puede ser nulo");
         }
-
 
         if (estadisticaDelPartidoDTO.getPartidoId() == null) {
             throw new Exception("Los partido id no puede ser nulo");
@@ -137,8 +141,7 @@ public class EstadisticaDelPartidoServicelmpl implements EstadisticaDelPartidoSe
     @Override
     public List<EstadisticaDelPartidoDTO> obtenerEstadisticadelPartidos() {
         List<EstadisticaDelPartido> listaEstadisticaDelPartidos = estadisticaDelPartidoRepository.findAll();
-        List<EstadisticaDelPartidoDTO> listaEstadisticaDelPartidosDTO = EstadisticaDelPartidoMapper.domainToDTOList(listaEstadisticaDelPartidos);
-        return listaEstadisticaDelPartidosDTO;
+        return EstadisticaDelPartidoMapper.domainToDTOList(listaEstadisticaDelPartidos);
     }
 
     @Override
@@ -147,7 +150,16 @@ public class EstadisticaDelPartidoServicelmpl implements EstadisticaDelPartidoSe
         if (id == null || id.equals(0)) {
             throw new Exception("Estadistica Del Partido no puede ser nulo");
         }
-        //hay que completar
 
+        boolean existeAlgunEquipo = estadisticaDelPartidoRepository.existsById(id);
+        if (estadisticaDelPartidoRepository.existsByEquipoId(id)) {
+            throw new Exception("Equipo no existe");
+        }
+
+        boolean existeAlgunPartido = estadisticaDelPartidoRepository.existsById(id);
+        if (estadisticaDelPartidoRepository.existsByPartidoId(id)) {
+            throw new Exception("Partido no existe");
+        }
+     estadisticaDelPartidoRepository.deleteById(id);
     }
 }

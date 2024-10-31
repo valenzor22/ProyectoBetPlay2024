@@ -1,18 +1,18 @@
-package com.ligabtp.ligabetplay.repository.service.implementation;
+package com.ligabtp.ligabetplay.service.implementation;
 
 import com.ligabtp.ligabetplay.domain.EventoDelPartido;
+import com.ligabtp.ligabetplay.domain.TipoEvento;
 import com.ligabtp.ligabetplay.dto.EventoDelPartidoDTO;
 import com.ligabtp.ligabetplay.mapper.EventoDelPartidoMapper;
 import com.ligabtp.ligabetplay.repository.EventoDelPartidoRepository;
 import com.ligabtp.ligabetplay.repository.TipoEventoRepository;
-import com.ligabtp.ligabetplay.repository.service.EventoDelPartidoService;
+import com.ligabtp.ligabetplay.service.EventoDelPartidoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
@@ -48,7 +48,16 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
             throw new Exception("El ID del jugador no puede ser nulo");
         }
 
+        if(eventoDelPartidoDTO.getTipoEventoId() == null ||
+                eventoDelPartidoDTO.getTipoEventoId().equals(0)) {
+            throw new Exception("No ha llegado el valor de TipoEvento");
+        }
+
         EventoDelPartido eventoDelPartido = EventoDelPartidoMapper.dtoToDomain(eventoDelPartidoDTO);
+
+        TipoEvento tipoEvento = tipoEventoRepository.getReferenceById(eventoDelPartidoDTO.getTipoEventoId());
+
+        eventoDelPartido.setTipoEvento(tipoEvento);
         eventoDelPartido = eventoDelPartidoRepository.save(eventoDelPartido);
         return EventoDelPartidoMapper.domainToDto(eventoDelPartido);
     }
@@ -109,13 +118,11 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
             throw new Exception("El id del evento del partido no puede ser nulo o cero");
         }
 
-        // Segundo debemos validar que exista la ciudad con el id que nos están pasando
-        Boolean existeEventoDelPartido = eventoDelPartidoRepository.existsById(id);
-        if (existeEventoDelPartido == false) {
-            throw new Exception("No existe el Evento del Partido con el id " + id + " por lo tanto no se puede eliminar");
+        boolean existeEventoDelPartido = eventoDelPartidoRepository.existsById(id);
+        if(existeEventoDelPartido == false) {
+            throw new Exception("No se ha encontrado el evento del partido con id "+id);
         }
 
-        // Si la ciudad no tiene aeropuertos asociados, entonces la eliminamos
         eventoDelPartidoRepository.deleteById(id);
     }
 }

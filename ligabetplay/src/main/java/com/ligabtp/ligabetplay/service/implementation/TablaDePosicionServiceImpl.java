@@ -1,10 +1,12 @@
-package com.ligabtp.ligabetplay.repository.service.implementation;
+package com.ligabtp.ligabetplay.service.implementation;
 
 import com.ligabtp.ligabetplay.domain.TablaDePosicion;
 import com.ligabtp.ligabetplay.dto.TablaDePosicionDTO;
 import com.ligabtp.ligabetplay.mapper.TablaDePosicionMapper;
+import com.ligabtp.ligabetplay.repository.EquipoRepository;
+import com.ligabtp.ligabetplay.repository.JornadaRepository;
 import com.ligabtp.ligabetplay.repository.TablaDePosicionRepository;
-import com.ligabtp.ligabetplay.repository.service.TablaDePosicionService;
+import com.ligabtp.ligabetplay.service.TablaDePosicionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,12 +15,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class TablaDePosicionSerivelmpl implements TablaDePosicionService {
+public class TablaDePosicionServiceImpl implements TablaDePosicionService {
 
     private final TablaDePosicionRepository tablaDePosicionRepository;
+    private final JornadaRepository jornadaRepository;
+    private final EquipoRepository equipoRepository;
 
-    public TablaDePosicionSerivelmpl(TablaDePosicionRepository tablaDePosicionRepository) {
+
+    public TablaDePosicionServiceImpl(TablaDePosicionRepository tablaDePosicionRepository, JornadaRepository jornadaRepository, EquipoRepository equipoRepository) {
         this.tablaDePosicionRepository = tablaDePosicionRepository;
+        this.jornadaRepository = jornadaRepository;
+        this.equipoRepository = equipoRepository;
     }
 
     @Override
@@ -135,8 +142,7 @@ public class TablaDePosicionSerivelmpl implements TablaDePosicionService {
     @Transactional(readOnly = true)
     public List<TablaDePosicionDTO> obtenerTablaDePosiciones() {
         List<TablaDePosicion> tablaDePosiciones = tablaDePosicionRepository.findAll();
-        List<TablaDePosicionDTO> tablaDePosicionesDTO = TablaDePosicionMapper.domainToDTOList(tablaDePosiciones);
-        return tablaDePosicionesDTO;
+        return TablaDePosicionMapper.domainToDTOList(tablaDePosiciones);
     }
 
     @Override
@@ -145,6 +151,11 @@ public class TablaDePosicionSerivelmpl implements TablaDePosicionService {
             throw new Exception("El id del tabla de posiciones no puede ser nula");
         }
 
-        //hay que completar
+    boolean existeAlgunaJornada = tablaDePosicionRepository.existsById(id);
+        if(tablaDePosicionRepository.existsByJornadaId(id)){
+            throw new Exception("La jornada con id" + id + " ya existe en la tabla de posiciones");
+        }
+
+        tablaDePosicionRepository.deleteById(id);
     }
 }
